@@ -73,7 +73,8 @@ div#columns:hover figure:not(:hover) {
             dataType: "json",
             success: function(responseData){
                 //responseData has been parsed to a object
-                console.log(responseData.foo);
+                console.log(responseData.records.0.id);
+                alert(responseData.records.0.id);
             }
         });
     }
