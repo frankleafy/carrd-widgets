@@ -65,24 +65,23 @@ div#columns:hover figure:not(:hover) {
 </style>
 
 <script>
-    //function loadCards()
-    $(function() 
-    {
-        alert('loading');
-
-        $.getJSON("https://script.googleusercontent.com/macros/echo?user_content_key=7oG7-DumnT8Y--VwSnFcD4yE3HuJmq9Uu3XvK3wBAnxVncUsFu3ITsW0xCyGFw_cjUMPF_HUL5QrAUle1HhiIBmGecYII_zCm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnIesqOQU-Pgzcjm8rDJN_nTfQ3J85cjqd1bNByPX3Y7ckBSYatLDwzZY-tW3YgkQPUkcVS6gmODD&lib=MSmZUDNa8S6uy0Ri7reS6k6rvMtb7czXH", 
-        function(data){ 
-            var html = [];
- 
-            /* loop through array */
-            $.each(data, function(index, d){            
-               // html.push("Manufacturer : ", d.Manufacturer, ", ",
-               //           "Sold : ", d.Sold, ", ", 
-               //           "Month : ", d.Month, "<br>");
-               alert(d);
-            });
-        })
-    });
+        (function($) {
+         
+        $.getJSON( "https://script.googleusercontent.com/macros/echo?user_content_key=KBuUioIT_gRRo-21t5u03rHQUBZ-txZWrWeV-82dKAtAleexEB0FcAkAypE8A_MrIoH5LgFSC-9ZtEDtmCOyuFsM0QEObh0Zm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnIesqOQU-Pgzcjm8rDJN_nTfQ3J85cjqd1bNByPX3Y7ckBSYatLDwzZY-tW3YgkQPUkcVS6gmODD&lib=MSmZUDNa8S6uy0Ri7reS6k6rvMtb7czXH", function( data ) {
+        alert(data);
+        /*
+         var items = [];
+         $.each( data, function( key, val ) {
+         items.push( "<li id='" + key + "'>" + val + "</li>" );
+         });
+         
+         $( "<ul/>", {
+         "class": "my-new-list",
+         html: items.join( "" )
+         }).appendTo( "body" );*/
+        });
+        
+        })(jQuery)
 </script>
 
 <div id="columns">
