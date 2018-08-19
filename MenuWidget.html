@@ -28,7 +28,10 @@ li a:hover:not(.active) {
 
 <script>
 //init
-document.getElementById('button1').style.borderBottom = "1px solid grey";
+$(function() {
+    document.getElementById('button1').style.borderBottom = "1px solid grey";
+});
+
 
 function updateButtons(btn)
 {
