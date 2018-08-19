@@ -28,20 +28,35 @@ li a:hover:not(.active) {
 
 <script>
 //style="border-bottom: 1px solid red;"
-document.getElementById('home').style.borderBottom = "1px solid red";
-document.getElementById('green').style.borderBottom = "1px solid white";
-document.getElementById('social').style.borderBottom = "1px solid white";
-document.getElementById('apply').style.borderBottom = "1px solid white";
-document.getElementById('about').style.borderBottom = "1px solid white";
-document.getElementById('contact').style.borderBottom = "1px solid white";
+document.getElementById('button1').style.borderBottom = "1px solid red";
+
+function updateButtons(btn)
+{
+
+    for (var i = 1; i < 6; i++) 
+    { 
+        if(i == btn)
+        {
+            document.getElementById('button'+i).style.borderBottom = "1px solid red";
+        }
+        else
+        {
+            document.getElementById('button'+i).style.borderBottom = "1px solid white";
+        }
+    }
+}
+
+
+
+
 </script>
 
 <br/>
 <ul id="buttons01" class="buttons">
- <li id="home"><a href="#home" >Home</a></li>
- <li id="green"><a href="#green"  onclick="document.getElementById('frame1').src = greenChallengesHTML">Green</a></li>
- <li id="social"><a href="#social"  onclick="document.getElementById('frame2').src = socialChallengesHTML">Social</a></li>
- <li id="apply"><a href="#apply"  onclick="document.getElementById('frame3').src = applyChallengesHTML">Meld je aan</a></li>
- <li id="about"><a href="#about" >About</a></li>
- <li id="contact"><a href="#contact" >Contact</a></li>
+ <li id="button1"><a href="#home"  onclick="updateButtons(btn);">Home</a></li>
+ <li id="button2"><a href="#green"  onclick="updateButtons(btn);document.getElementById('frame1').src = greenChallengesHTML">Green</a></li>
+ <li id="button3"><a href="#social"  onclick="updateButtons(btn);document.getElementById('frame2').src = socialChallengesHTML">Social</a></li>
+ <li id="button4"><a href="#apply"  onclick="updateButtons(btn);document.getElementById('frame3').src = applyChallengesHTML">Meld je aan</a></li>
+ <li id="button5"><a href="#about"  onclick="updateButtons(btn);">About</a></li>
+ <li id="button5"><a href="#contact"  onclick="updateButtons(btn);">Contact</a></li>
  </ul>
