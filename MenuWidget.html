@@ -25,12 +25,23 @@ li a:hover:not(.active) {
  background-color: #C3C3C3;
 }
 </style>
+
+<script>
+//style="border-bottom: 1px solid red;"
+document.getElementById('home').style.borderBottom = "1px solid red";
+document.getElementById('green').style.borderBottom = "1px solid white";
+document.getElementById('social').style.borderBottom = "1px solid white";
+document.getElementById('apply').style.borderBottom = "1px solid white";
+document.getElementById('about').style.borderBottom = "1px solid white";
+document.getElementById('contact').style.borderBottom = "1px solid white";
+</script>
+
 <br/>
 <ul id="buttons01" class="buttons">
- <li style="border-bottom: 1px solid red;"><a href="#home" class="button n01">Home</a></li>
- <li><a href="#green" class="button n02" onclick="document.getElementById('frame1').src = greenChallengesHTML">Green</a></li>
- <li><a href="#social" class="button n03" onclick="document.getElementById('frame2').src = socialChallengesHTML">Social</a></li>
- <li><a href="#apply" class="button n04" onclick="document.getElementById('frame3').src = applyChallengesHTML">Meld je aan</a></li>
- <li><a href="#about" class="button n05">About</a></li>
- <li><a href="#contact" class="button n06">Contact</a></li>
+ <li id="home"><a href="#home" >Home</a></li>
+ <li id="green"><a href="#green"  onclick="document.getElementById('frame1').src = greenChallengesHTML">Green</a></li>
+ <li id="social"><a href="#social"  onclick="document.getElementById('frame2').src = socialChallengesHTML">Social</a></li>
+ <li id="apply"><a href="#apply"  onclick="document.getElementById('frame3').src = applyChallengesHTML">Meld je aan</a></li>
+ <li id="about"><a href="#about" >About</a></li>
+ <li id="contact"><a href="#contact" >Contact</a></li>
  </ul>
