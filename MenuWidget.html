@@ -52,7 +52,9 @@ function updateButtons(btn)
 
 function loadContent()
 {
-
+    document.getElementById('frame1').src = greenChallengesHTML;
+    document.getElementById('frame2').src = socialChallengesHTML;
+    document.getElementById('frame3').src = applyChallengesHTML;
 }
 
 </script>
@@ -60,9 +62,9 @@ function loadContent()
 <br/>
 <ul id="buttons01" class="buttons">
  <li id="button1"><a href="#home"  onclick="updateButtons(1);">Home</a></li>
- <li id="button2"><a href="#green"  onclick="updateButtons(2);document.getElementById('frame1').src = greenChallengesHTML">Green</a></li>
- <li id="button3"><a href="#social"  onclick="updateButtons(3);document.getElementById('frame2').src = socialChallengesHTML">Social</a></li>
- <li id="button4"><a href="#apply"  onclick="updateButtons(4);document.getElementById('frame3').src = applyChallengesHTML">Meld je aan</a></li>
+ <li id="button2"><a href="#green"  onclick="updateButtons(2);">Green</a></li>
+ <li id="button3"><a href="#social"  onclick="updateButtons(3);">Social</a></li>
+ <li id="button4"><a href="#apply"  onclick="updateButtons(4);">Meld je aan</a></li>
  <li id="button5"><a href="#about"  onclick="updateButtons(5);">About</a></li>
  <li id="button5"><a href="#contact"  onclick="updateButtons(6);">Contact</a></li>
  </ul>
