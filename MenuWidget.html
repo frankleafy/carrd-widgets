@@ -30,7 +30,8 @@ li a:hover:not(.active) {
 <script>
 //init
 $(function() {
-    document.getElementById('button1').style.borderBottom = "1px solid grey";
+    //document.getElementById('button1').style.borderBottom = "1px solid grey";
+    $('#button1').style.borderBottom = "1px solid white";
 });
 
 
@@ -42,11 +43,13 @@ function updateButtons(btn)
         button = 'button'+i;
         if(i == btn)
         {
-            document.getElementById(button).style.borderBottom = "1px solid grey";
+         //   document.getElementById(button).style.borderBottom = "1px solid grey";
+            $('#'+button).style.borderBottom = "1px solid grey";
         }
         else
         {
-            document.getElementById(button).style.borderBottom = "1px solid white";
+           // document.getElementById(button).style.borderBottom = "1px solid white";
+            $('#'+button).style.borderBottom = "1px solid white";
         }
     }
 }
