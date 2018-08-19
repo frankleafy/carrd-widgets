@@ -27,17 +27,17 @@ li a:hover:not(.active) {
 </style>
 
 <script>
-//style="border-bottom: 1px solid red;"
-document.getElementById('button1').style.borderBottom = "1px solid red";
+//init
+document.getElementById('button1').style.borderBottom = "1px solid grey";
 
 function updateButtons(btn)
 {
 
-    for (var i = 1; i < 6; i++) 
+    for (var i = 1; i < 7; i++) 
     { 
         if(i == btn)
         {
-            document.getElementById('button'+i).style.borderBottom = "1px solid red";
+            document.getElementById('button'+i).style.borderBottom = "1px solid grey";
         }
         else
         {
@@ -46,8 +46,10 @@ function updateButtons(btn)
     }
 }
 
+function loadContent()
+{
 
-
+}
 
 </script>
 
