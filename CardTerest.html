@@ -68,13 +68,19 @@ div#columns:hover figure:not(:hover) {
     //function loadCards()
     $(function() 
     {
+        alert('loading');
         $.ajax({
             url: "https://script.googleusercontent.com/macros/echo?user_content_key=7oG7-DumnT8Y--VwSnFcD4yE3HuJmq9Uu3XvK3wBAnxVncUsFu3ITsW0xCyGFw_cjUMPF_HUL5QrAUle1HhiIBmGecYII_zCm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnIesqOQU-Pgzcjm8rDJN_nTfQ3J85cjqd1bNByPX3Y7ckBSYatLDwzZY-tW3YgkQPUkcVS6gmODD&lib=MSmZUDNa8S6uy0Ri7reS6k6rvMtb7czXH",
             dataType: "json",
             success: function(responseData){
                 //responseData has been parsed to a object
-                console.log(responseData.records.0.id);
-                alert(responseData.records.0.id);
+                console.log(responseData.records);
+                alert(responseData.records);
+            },
+            error: function(){
+                //responseData has been parsed to a object
+   
+                alert('errorrr');
             }
         });
     }
