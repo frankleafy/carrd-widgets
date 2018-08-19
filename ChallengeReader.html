@@ -79,7 +79,7 @@
 -->
     <div id="columns">
         <figure v-for="item in items">
-            <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/4273/cinderella.jpg">
+            <img :src="{{ item['fields']['Attachements'][0][url] }}">
             <figcaption>{{ item['fields']['Titel'] }}</figcaption>
         </figure>
     </div>
