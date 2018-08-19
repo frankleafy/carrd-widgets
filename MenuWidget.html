@@ -36,16 +36,17 @@ $(function() {
 
 function updateButtons(btn)
 {
-
+    var button = '';
     for (var i = 1; i < 7; i++) 
     { 
+        button = 'button'+i;
         if(i == btn)
         {
-            document.getElementById('button'+i).style.borderBottom = "1px solid grey";
+            document.getElementById(button).style.borderBottom = "1px solid grey";
         }
         else
         {
-            document.getElementById('button'+i).style.borderBottom = "1px solid white";
+            document.getElementById(button).style.borderBottom = "1px solid white";
         }
     }
 }
