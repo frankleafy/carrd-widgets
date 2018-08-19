@@ -1,0 +1,114 @@
+<style>
+        @font-face{font-family:'Calluna';
+         src:url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/callunasansregular-webfont.woff') format('woff');
+        }
+        body {
+            background: url(//subtlepatterns.com/patterns/scribble_light.png);
+          font-family: Calluna, Arial, sans-serif;
+          min-height: 1000px;
+        }
+        #columns {
+            column-width: 200px;
+            column-gap: 15px;
+          width: 90%;
+            max-width: 1100px;
+            margin: 50px auto;
+        }
+        
+        div#columns figure {
+            background: #fefefe;
+            border: 2px solid #fcfcfc;
+            box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+            margin: 0 2px 15px;
+            padding: 15px;
+            padding-bottom: 10px;
+            /*transition: opacity .4s ease-in-out;*/
+          display: inline-block;
+          column-break-inside: avoid;
+        }
+        
+        div#columns figure img {
+            width: 100%; height: auto;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 15px;
+            margin-bottom: 5px;
+        }
+        
+        div#columns figure figcaption {
+          font-size: .9rem;
+            color: #444;
+          line-height: 1.5;
+        }
+        
+        div#columns small { 
+          font-size: 1rem;
+          float: right; 
+          text-transform: uppercase;
+          color: #aaa;
+        } 
+        
+        div#columns small a { 
+          color: #666; 
+          text-decoration: none; 
+          transition: .4s color;
+        }
+        /*
+        div#columns:hover figure:not(:hover) {
+            opacity: 0.4;
+        }
+        */
+        
+        @media screen and (max-width: 750px) { 
+          #columns { column-gap: 0px; }
+          #columns figure { width: 100%; }
+        }
+        </style>
+<!--
+<div id="app">
+        <h1>Menu Items</h1>
+        <ul>
+            <li v-for="item in items">
+                <h3>{{ item['fields']['Item'] }}</h3>
+                <p>{{ item['fields']['Description'] }}</p>
+                <p><strong>Price: </strong>${{ item['fields']['Price'] }}</p>
+                <p><strong>Category: </strong>{{ item['fields']['Category'] }}</p>
+                <img :src="item['fields']['Photo'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Photo']" width="150">
+            </li>
+        </ul>            
+    </div>
+-->
+    <div id="columns">
+        <figure v-for="item in items">
+            <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/4273/cinderella.jpg">
+            <figcaption>{{ item['fields']['Titel'] }}</figcaption>
+        </figure>
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#columns',
+            data: {
+                items: []
+            },
+            mounted: function(){
+               this.loadItems(); 
+            },
+            methods: {
+                loadItems: function(){
+                    
+                    // Init variables
+                    var self = this;
+                    this.items = []
+                    axios.get(
+                        "https://script.googleusercontent.com/macros/echo?user_content_key=UOnvdjO_92PElCLo08K3v0c-NVx76cftUjmUHeZTXSNS6ddqQ6ja2jtZsXnDC8p37blRsbw0MCHElt2qTtwOiS9rkI5KKZpcm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnIesqOQU-Pgzcjm8rDJN_nTfQ3J85cjqd1bNByPX3Y7ckBSYatLDwzZY-tW3YgkQPUkcVS6gmODD&lib=MSmZUDNa8S6uy0Ri7reS6k6rvMtb7czXH",
+                        { 
+                        }
+                    ).then(function(response){
+                        self.items = response.data.records
+                    }).catch(function(error){
+                        console.log(error)
+                    })
+                }
+            }
+        })
+    </script>
