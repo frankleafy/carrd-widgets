@@ -79,7 +79,7 @@
 -->
     <div id="columns">
         <figure v-for="item in items">
-            <img :src="item['fields']['Attachements'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachements']" >
+            <img :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']" >
             <figcaption>{{ item['fields']['Titel'] }}</figcaption>
         </figure>
     </div>
