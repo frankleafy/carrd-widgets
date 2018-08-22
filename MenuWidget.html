@@ -32,6 +32,7 @@ li a:hover:not(.active) {
 $(function() {
     //document.getElementById('button1').style.borderBottom = "1px solid grey";
     $('#button1').style.borderBottom = "1px solid white";
+    loadButtons();
 });
 
 
@@ -61,14 +62,32 @@ function loadContent()
     document.getElementById('frame3').src = applyChallengesHTML;
 }
 
+
+function loadButtons()
+{
+    var menuItems =[
+    {title:"Home", section:"home", container:"iframe1", content:"bla1.json"},
+    {title:"Green", section:"green", container:"iframe2", content:"bla2.json"},
+    {title:"Social", section:"social", container:"iframe3", content:"bla3.json"},
+    {title:"Apply", section:"apply", container:"iframe4", content:"bla4.json"},
+    {title:"Events", section:"events", container:"iframe5", content:"bla5.json"},
+    {title:"About", section:"about", container:"iframe6", content:"bla6.json"},
+    {title:"Contact", section:"contact", container:"iframe7", content:"bla7.json"}];
+
+    $( ".mainMenu" ).add( $( "<ul id='buttons01' class='buttons'>"));
+    for (var i = 0; i < menuItems.length; i++) 
+    {
+        $( ".mainMenu" ).add( $( "<li id='button"+i+"'><a href='#"+ menuItems[i].section +"'  onclick='updateButtons("+i+");'>"+ menuItems[i].title +"</a></li>"));
+    } 
+    $( ".mainMenu" ).add( $( "</ul>" ) );
+}
+
 </script>
 
 <br/>
-<ul id="buttons01" class="buttons">
- <li id="button1"><a href="#home"  onclick="updateButtons(1);">Home</a></li>
- <li id="button2"><a href="#green"  onclick="updateButtons(2);">Green</a></li>
- <li id="button3"><a href="#social"  onclick="updateButtons(3);">Social</a></li>
- <li id="button4"><a href="#apply"  onclick="updateButtons(4);">Meld je aan</a></li>
- <li id="button5"><a href="#about"  onclick="updateButtons(5);">About</a></li>
- <li id="button5"><a href="#contact"  onclick="updateButtons(6);">Contact</a></li>
- </ul>
+<div id="mainMenu">
+
+</div>
+
+
+

@@ -69,6 +69,8 @@ div#columns:hover figure:not(:hover) {
          
         $.getJSON( "https://script.googleusercontent.com/macros/echo?user_content_key=KBuUioIT_gRRo-21t5u03rHQUBZ-txZWrWeV-82dKAtAleexEB0FcAkAypE8A_MrIoH5LgFSC-9ZtEDtmCOyuFsM0QEObh0Zm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnIesqOQU-Pgzcjm8rDJN_nTfQ3J85cjqd1bNByPX3Y7ckBSYatLDwzZY-tW3YgkQPUkcVS6gmODD&lib=MSmZUDNa8S6uy0Ri7reS6k6rvMtb7czXH", function( data ) {
         alert(data);
+        $.each(data.records,function(i,v){
+        });
         /*
          var items = [];
          $.each( data, function( key, val ) {
