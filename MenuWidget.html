@@ -28,12 +28,6 @@ li a:hover:not(.active) {
 </style>
 
 <script>
-//init
-$(function() {
-    //document.getElementById('button1').style.borderBottom = "1px solid grey";
-    $('#button1').style.borderBottom = "1px solid white";
-    loadButtons();
-});
 
 
 function updateButtons(btn)
@@ -81,6 +75,12 @@ function loadButtons()
     } 
     $( ".mainMenu" ).add( $( "</ul>" ) );
 }
+//init
+$(function() {
+    //document.getElementById('button1').style.borderBottom = "1px solid grey";
+    $('#button1').style.borderBottom = "1px solid white";
+    loadButtons();
+});
 
 </script>
 
