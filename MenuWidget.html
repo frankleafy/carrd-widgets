@@ -73,12 +73,12 @@ function loadButtons()
     {title:"About", section:"about", container:"iframe6", content:"bla6.json"},
     {title:"Contact", section:"contact", container:"iframe7", content:"bla7.json"}];
 
-    $( "#mainMenu" ).add( $( "<ul id='buttons01' class='buttons'>"));
+    $( "#mainMenu" ).add( "<ul id='buttons01' class='buttons'>");
     for (var i = 0; i < menuItems.length; i++) 
     {
-        $( "#mainMenu" ).add( $( "<li id='button"+i+"'><a href='#"+ menuItems[i].section +"'  onclick='updateButtons("+i+");'>"+ menuItems[i].title +"</a></li>"));
+        $( "#mainMenu" ).add("<li id='button"+i+"'><a href='#"+ menuItems[i].section +"'  onclick='updateButtons("+i+");'>"+ menuItems[i].title +"</a></li>");
     } 
-    $( "#mainMenu" ).add( $( "</ul>" ) );
+    $( "#mainMenu" ).add( "</ul>" ) ;
 }
 //init
 $(function() {
