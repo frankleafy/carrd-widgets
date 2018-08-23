@@ -30,78 +30,84 @@
 <body>
 
 
-<style>
-    #menuItems {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        color: #606060;
-        background-color: rgb(255, 255, 255);
-    }
-    
-    li {
-        float: left;
-        border-bottom: 1px solid white;
-    }
-    
-    li a {
-        display: block;
-        color: 606060;
-        font-family: 'Source Sans Pro', sans-serif;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-    }
-    
-    li a:hover:not(.active) {
-        background-color: #C3C3C3;
-    }
-</style>
-
-<br/>
-<!-- menu template-->
-<div id="mainMenu">
-    <ul id="menuItems" class="buttons">
-    </ul>        
-</div>
-
-
-<script>
-
-function updateButtons(btn)
-{
-    for (var i = 0; i < menuItems.length; i++) 
-    { 
-
-        if(i == btn)
-        {
-            $('#button'+i)[0].style.borderBottom = "1px solid grey";
-        }
-        else
-        {
-            $('#button'+i)[0].style.borderBottom = "1px solid white";
-        }
-    }
-}
-
-function loadButtonsAndHomeContent()
-{
-    for (var i = 0; i < menuItems.length; i++) 
-    {
-        $( "#menuItems" ).append("<li id='button"+i+"'><a href='#"+ menuItems[i].section +"'  onclick='updateButtons("+i+");'>"+ menuItems[i].title +"</a></li>");
-    } 
-
-}
-
-//init
-$(function() {
-    loadButtonsAndHomeContent();
-});
-
-</script>
+        <style>
+                #menuItems {
+                    list-style-type: none;
+                    margin: 0;
+                    padding: 0;
+                    overflow: hidden;
+                    color: #606060;
+                    background-color: rgb(255, 255, 255);
+                }
+                
+                li {
+                    float: left;
+                    border-bottom: 1px solid white;
+                }
+                
+                li a {
+                    display: block;
+                    color: 606060;
+                    font-family: 'Source Sans Pro', sans-serif;
+                    text-align: center;
+                    padding: 14px 16px;
+                    text-decoration: none;
+                }
+                
+                li a:hover:not(.active) {
+                    background-color: #C3C3C3;
+                }
+            </style>
+            
         
+            
+            
+            <script>
+            
+            function updateButtons(btn)
+            {
+                for (var i = 0; i < menuItems.length; i++) 
+                { 
+            
+                    if(i == btn)
+                    {
+                        $('#button'+i)[0].style.borderBottom = "1px solid grey";
+                        //update content with menuItems[i].content and menuItems[i].container
+                    }
+                    else
+                    {
+                        $('#button'+i)[0].style.borderBottom = "1px solid white";
+                    }
+                }
+            }
+            
+            function loadButtonsAndHomeContent()
+            {
+                for (var i = 0; i < menuItems.length; i++) 
+                {
+                    //$( "#menuItems" ).add( "li" );
+                    //$( "#menuItems" ).add( "p" ).css( "background-color", "red" );
+                    var test_div = $("<li>hoi</li>");
+            $('#menuItems')[0].append(test_div);
+                   // $( "menuItems" )[0].append(content);//'<li id="button'+i+'"><a href="#'+ menuItems[i].section +'"  onclick="updateButtons('+i+');">'+ menuItems[i].title +'</a></li>');
+                } 
+            
+            }
+            
+            //init
+            $(function() {
+                loadButtonsAndHomeContent();
+            });
+            
+            </script>
         
+        <br/>
+        <!-- menu template-->
+        <div id="mainMenu">
+            <ul id="menuItems" class="buttons">
+                <li>ball</li>
+            </ul>        
+        </div>
         
         
         

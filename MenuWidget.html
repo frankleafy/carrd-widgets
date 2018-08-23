@@ -1,69 +1,84 @@
 <style>
-        #menuItems {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            color: #606060;
-            background-color: rgb(255, 255, 255);
-        }
-        
-        li {
-            float: left;
-            border-bottom: 1px solid white;
-        }
-        
-        li a {
-            display: block;
-            color: 606060;
-            font-family: 'Source Sans Pro', sans-serif;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-        
-        li a:hover:not(.active) {
-            background-color: #C3C3C3;
-        }
-    </style>
+    #menuItems {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        color: #606060;
+        background-color: rgb(255, 255, 255);
+    }
     
+    li {
+        float: left;
+        border-bottom: 1px solid white;
+    }
+    
+    li a {
+        display: block;
+        color: 606060;
+        font-family: 'Source Sans Pro', sans-serif;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+    
+    li a:hover:not(.active) {
+        background-color: #C3C3C3;
+    }
+</style>
+    
+<script>
 
-    
-    
-    <script>
-    
     function updateButtons(btn)
     {
         for (var i = 0; i < menuItems.length; i++) 
         { 
-    
+
             if(i == btn)
             {
-                $('#button'+i)[0].style.borderBottom = "1px solid grey";
+                document.getElementById("button"+i).style.borderBottom = "1px solid grey";
                 //update content with menuItems[i].content and menuItems[i].container
             }
             else
             {
-                $('#button'+i)[0].style.borderBottom = "1px solid white";
+                document.getElementById("button"+i).style.borderBottom = "1px solid white";
             }
         }
     }
-    
+
+    function addMenuItem(item)
+    {
+        var ul = document.getElementById("menuItems");
+        var li = document.createElement("li");
+        var children = ul.children.length;
+        li.setAttribute("id", "button"+children);
+        var link = document.createElement("a");
+
+        var linkText = document.createTextNode(menuItems[item].title);
+        link.appendChild(linkText);
+        link.title = menuItems[item].title;
+        link.href = "#"+menuItems[item].section;
+        link.addEventListener("click", function(){ updateButtons(item); });
+
+        li.appendChild(link);
+        ul.appendChild(li);
+    }
+
     function loadButtonsAndHomeContent()
     {
         for (var i = 0; i < menuItems.length; i++) 
         {
-            $( "#menuItems" ).append('<li id="button"'+i+'"><a href="#"'+ menuItems[i].section +'"  onclick="updateButtons('+i+');">'+ menuItems[i].title +'</a></li>');
+            addMenuItem(i);
+            // $( "menuItems" )[0].append(content);//'<li id="button'+i+'"><a href="#'+ menuItems[i].section +'"  onclick="updateButtons('+i+');">'+ menuItems[i].title +'</a></li>');
         } 
-    
     }
-    
+
     //init
     $(function() {
         loadButtonsAndHomeContent();
     });
-    
-    </script>
+
+</script>
 
 <br/>
 <!-- menu template-->
