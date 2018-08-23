@@ -27,12 +27,7 @@
         }
     </style>
     
-    <br/>
-    <!-- menu template-->
-    <div id="mainMenu">
-        <ul id="menuItems" class="buttons">
-        </ul>        
-    </div>
+
     
     
     <script>
@@ -58,7 +53,7 @@
     {
         for (var i = 0; i < menuItems.length; i++) 
         {
-            $( "#menuItems" ).append("<li id='button"+i+"'><a href='#"+ menuItems[i].section +"'  onclick='updateButtons("+i+");'>"+ menuItems[i].title +"</a></li>");
+            $( "#menuItems" ).append('<li id="button"'+i+'"><a href="#"'+ menuItems[i].section +'"  onclick="updateButtons('+i+');">'+ menuItems[i].title +'</a></li>');
         } 
     
     }
@@ -69,3 +64,10 @@
     });
     
     </script>
+
+<br/>
+<!-- menu template-->
+<div id="mainMenu">
+    <ul id="menuItems" class="buttons">
+    </ul>        
+</div>
