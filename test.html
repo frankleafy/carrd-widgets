@@ -1,0 +1,111 @@
+<html>
+<head>
+    <title>script test page</title>
+
+    <!-- include widget -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/vue"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
+
+    <script>
+    //temp
+     var greenChallengesHTML = 'https://airtable.com/embed/shr0n9xDCCLsPhmJM';
+     var socialChallengesHTML = 'https://airtable.com/embed/shrSd5aLjzoF17G4d';
+     var applyChallengesHTML = 'https://airtable.com/embed/shrYAM0WCTEcpJFix';
+
+    var menuItems =[
+    {title:"Home", section:"home", container:"iframe1", content:"bla1.json"},
+    {title:"Green", section:"green", container:"iframe2", content:"bla2.json"},
+    {title:"Social", section:"social", container:"iframe3", content:"bla3.json"},
+    {title:"Apply", section:"apply", container:"iframe4", content:"bla4.json"},
+    {title:"Events", section:"events", container:"iframe5", content:"bla5.json"},
+    {title:"About", section:"about", container:"iframe6", content:"bla6.json"},
+    {title:"Contact", section:"contact", container:"iframe7", content:"bla7.json"},
+    {title:"teste", section:"contact", container:"iframe7", content:"bla7.json"}
+    ];
+
+    </script>
+
+</head>
+<body>
+
+
+<style>
+    #menuItems {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        color: #606060;
+        background-color: rgb(255, 255, 255);
+    }
+    
+    li {
+        float: left;
+        border-bottom: 1px solid white;
+    }
+    
+    li a {
+        display: block;
+        color: 606060;
+        font-family: 'Source Sans Pro', sans-serif;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+    
+    li a:hover:not(.active) {
+        background-color: #C3C3C3;
+    }
+</style>
+
+<br/>
+<!-- menu template-->
+<div id="mainMenu">
+    <ul id="menuItems" class="buttons">
+    </ul>        
+</div>
+
+
+<script>
+
+function updateButtons(btn)
+{
+    for (var i = 0; i < menuItems.length; i++) 
+    { 
+
+        if(i == btn)
+        {
+            $('#button'+i)[0].style.borderBottom = "1px solid grey";
+        }
+        else
+        {
+            $('#button'+i)[0].style.borderBottom = "1px solid white";
+        }
+    }
+}
+
+function loadButtonsAndHomeContent()
+{
+    for (var i = 0; i < menuItems.length; i++) 
+    {
+        $( "#menuItems" ).append("<li id='button"+i+"'><a href='#"+ menuItems[i].section +"'  onclick='updateButtons("+i+");'>"+ menuItems[i].title +"</a></li>");
+    } 
+
+}
+
+//init
+$(function() {
+    loadButtonsAndHomeContent();
+});
+
+</script>
+        
+        
+        
+        
+        
+                
+
+</body>
+</html>
