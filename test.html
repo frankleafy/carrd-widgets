@@ -59,59 +59,68 @@
                 }
             </style>
             
-        
-            
+            <br/>
+            <!-- menu template-->
+            <div id="mainMenu">
+                <ul id="menuItems" class="buttons">
+                </ul>        
+            </div>
             
             <script>
             
-            function updateButtons(btn)
-            {
-                for (var i = 0; i < menuItems.length; i++) 
-                { 
+                function updateButtons(btn)
+                {
+                    for (var i = 0; i < menuItems.length; i++) 
+                    { 
             
-                    if(i == btn)
-                    {
-                        $('#button'+i)[0].style.borderBottom = "1px solid grey";
-                        //update content with menuItems[i].content and menuItems[i].container
-                    }
-                    else
-                    {
-                        $('#button'+i)[0].style.borderBottom = "1px solid white";
+                        if(i == btn)
+                        {
+                            document.getElementById("button"+i).style.borderBottom = "1px solid grey";
+                            //update content with menuItems[i].content and menuItems[i].container
+                        }
+                        else
+                        {
+                            document.getElementById("button"+i).style.borderBottom = "1px solid white";
+                        }
                     }
                 }
-            }
             
-            function loadButtonsAndHomeContent()
-            {
-                for (var i = 0; i < menuItems.length; i++) 
+                function addMenuItem(item)
                 {
-                    //$( "#menuItems" ).add( "li" );
-                    //$( "#menuItems" ).add( "p" ).css( "background-color", "red" );
-                    var test_div = $("<li>hoi</li>");
-            $('#menuItems')[0].append(test_div);
-                   // $( "menuItems" )[0].append(content);//'<li id="button'+i+'"><a href="#'+ menuItems[i].section +'"  onclick="updateButtons('+i+');">'+ menuItems[i].title +'</a></li>');
-                } 
+                    var ul = document.getElementById("menuItems");
+                    var li = document.createElement("li");
+                    var children = ul.children.length;
+                    li.setAttribute("id", "button"+children);
+                    var link = document.createElement("a");
             
-            }
+                    var linkText = document.createTextNode(menuItems[item].title);
+                    link.appendChild(linkText);
+                    link.title = menuItems[item].title;
+                    link.href = "#"+menuItems[item].section;
+                    link.addEventListener("click", function(){ updateButtons(item); });
             
-            //init
-            $(function() {
-                loadButtonsAndHomeContent();
-            });
+                    li.appendChild(link);
+                    ul.appendChild(li);
+                }
+            
+                function loadButtonsAndHomeContent()
+                {
+                    for (var i = 0; i < menuItems.length; i++) 
+                    {
+                        addMenuItem(i);
+                        // $( "menuItems" )[0].append(content);//'<li id="button'+i+'"><a href="#'+ menuItems[i].section +'"  onclick="updateButtons('+i+');">'+ menuItems[i].title +'</a></li>');
+                    } 
+                }
+            
+                //init
+                document.onload = function(){loadButtonsAndHomeContent();};
             
             </script>
-        
-        <br/>
-        <!-- menu template-->
-        <div id="mainMenu">
-            <ul id="menuItems" class="buttons">
-                <li>ball</li>
-            </ul>        
-        </div>
-        
+            
         
         
                 
 
 </body>
 </html>
+
