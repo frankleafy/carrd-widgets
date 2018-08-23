@@ -65,6 +65,10 @@
         var li = document.createElement("li");
         var children = ul.children.length;
         li.setAttribute("id", "button"+children);
+        if(item == 0)
+        {
+            li.setAttribute("style", "borderBottom:1px solid grey");
+        }
         var link = document.createElement("a");
 
         var linkText = document.createTextNode(menuItems[item].title);
