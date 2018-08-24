@@ -18,6 +18,7 @@
                 //2Do: Replace with css classes 'selected' and 'notselected'
                 document.getElementById("button"+i).style.borderBottom = "1px solid grey";
                 //update content with menuItems[i].content and menuItems[i].container
+                loadJsonIntoTemplate(menuItems[i].container, menuItems[i].content);
             }
             else
             {
