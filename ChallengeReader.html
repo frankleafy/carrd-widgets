@@ -13,7 +13,7 @@
         </ul>            
     </div>
 -->
-    <div id="greenChallenges">
+    <div id="greenChallenges" class="columms">
         <figure v-for="item in items">
             <img :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']" >
             <figcaption>{{ item['fields']['Titel'] }}</figcaption>
