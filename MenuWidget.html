@@ -18,10 +18,10 @@
                 //2Do: Replace with css classes 'selected' and 'notselected'
                 document.getElementById("button"+i).style.borderBottom = "1px solid grey";
                 //update content with menuItems[i].content and menuItems[i].container
-                if(!menuItems[i].loaded)
+                if(menuItems[i].loaded == 0)
                 {
                     loadJsonIntoTemplate(menuItems[i].container, menuItems[i].content);
-                    menuItems[i].loaded = true;
+                    menuItems[i].loaded = 1;
                 }
             }
             else
