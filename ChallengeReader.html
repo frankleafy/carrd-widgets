@@ -84,31 +84,3 @@
         </figure>
     </div>
 
-    <script type="text/javascript">
-        var app = new Vue({
-            el: '#columns',
-            data: {
-                items: []
-            },
-            mounted: function(){
-               this.loadItems(); 
-            },
-            methods: {
-                loadItems: function(){
-                    
-                    // Init variables
-                    var self = this;
-                    this.items = []
-                    axios.get(
-                        "https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Green%20Challenges",
-                        { 
-                        }
-                    ).then(function(response){
-                        self.items = response.data.records
-                    }).catch(function(error){
-                        console.log(error)
-                    })
-                }
-            }
-        })
-    </script>

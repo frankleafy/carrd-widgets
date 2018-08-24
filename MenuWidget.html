@@ -49,6 +49,7 @@
 
             if(i == btn)
             {
+                //2Do: Replace with css classes 'selected' and 'notselected'
                 document.getElementById("button"+i).style.borderBottom = "1px solid grey";
                 //update content with menuItems[i].content and menuItems[i].container
             }
@@ -86,9 +87,7 @@
         for (var i = 0; i < menuItems.length; i++) 
         {
             addMenuItem(i);
-            // $( "menuItems" )[0].append(content);//'<li id="button'+i+'"><a href="#'+ menuItems[i].section +'"  onclick="updateButtons('+i+');">'+ menuItems[i].title +'</a></li>');
         } 
-        
     }
 
     //init
