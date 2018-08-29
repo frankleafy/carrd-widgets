@@ -9,6 +9,9 @@ function loadJsonIntoTemplate(templateContainer, JsonUrl)
         mounted: function(){
            this.loadItems(); 
         },
+        updated: function(){
+            this.loadItems(); 
+         },
         methods: {
             loadItems: function(){
                 
@@ -16,7 +19,7 @@ function loadJsonIntoTemplate(templateContainer, JsonUrl)
                 var self = this;
                 this.items = []
                 axios.get(
-                    JsonUrl,//"https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Green%20Challenges",
+                    JsonUrl, //google script, NOT Airtable
                     { 
                     }
                 ).then(function(response){

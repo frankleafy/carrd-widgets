@@ -17,6 +17,7 @@
         <figure v-for="item in items">
             <img :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="item['fields']['Titel']" v-if="item['fields']['Attachments']" >
             <figcaption class="challengetitle">{{ item['fields']['Titel'] }}</figcaption>
+            <a href="#detailview"  v-on:click="loadJsonIntoTemplate('singleChallenge', item['fields']['Code'] )" >details</a>
         </figure>
     </div>
 

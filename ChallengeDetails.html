@@ -16,14 +16,15 @@
 <div id="singleChallenges" class="detailsview">
     <figure v-for="item in items">
         <img :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="item['fields']['Titel']" v-if="item['fields']['Attachments']" >
-        <p class="challengeTitle">Titel:<br>{{ item['fields']['Titel'] }}</p>
-        <p class="challengeSummary">Samenvatting:<br>{{ item['fields']['Samenvatting'] }}</p>
-        <p>
+        <p class="challengetitle">Id:<br>{{ item['id'] }}</p>
+        <p class="challengetitle">Titel:<br>{{ item['fields']['Titel'] }}</p>
+        <p class="challengetitle">Samenvatting:<br>{{ item['fields']['Samenvatting'] }}</p>
+        <p class="challengetitle">
             Omschrijving:<br>
             {{ item['fields']['Omschrijving'] }}
         </p>
-            <a href="item['fields']['Website']" >{{ item['fields']['Website'] }}</a>
-        <p>
+            <a :href="item['fields']['Website']" target="_blank" class="challengetitle">{{ item['fields']['Website'] }}</a>
+        <p class="challengetitle">
             Deadline: {{ item['fields']['Inschrijving'] }}<br/>
             Opdrachtgever: {{ item['fields']['Opdrachtgever']['Name'] }}<br/>
         </p>
