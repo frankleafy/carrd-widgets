@@ -20,23 +20,33 @@
             </div>
             
             <div id="green" class="section content">
-                    <button @click="loadItems('https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Green%20Challenges')">Show challenges</button>
-                    <div id="greenChallenges" class="columns">
-                            <figure v-for="item in items">
-                            <img :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']" >
-                            <figcaption class="challengetitle">{{ item['fields']['Titel'] }}</figcaption>
-                            <input type="text" :value="item['fields']['Code']" id="item['fields']['Code']">
-                           </figure>
-                    </div>
-                    
+                <div id="greenChallenges" class="columns">
+                        <figure v-for="item in menuItems[1].data">
+                        <img :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']" >
+                        <figcaption class="challengetitle">{{ item['fields']['Titel'] }}</figcaption>
+                        <input type="text" :value="item['fields']['Code']" id="item['fields']['Code']">                              
+                        </figure>
+                </div>
             </div>
 
             <div id="social" class="section content">
-                    social content
+                <div id="socialChallenges" class="columns">
+                        <figure v-for="item in menuItems[2].data">
+                        <img :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']" >
+                        <figcaption class="challengetitle">{{ item['fields']['Titel'] }}</figcaption>
+                        <input type="text" :value="item['fields']['Code']" id="item['fields']['Code']">                              
+                        </figure>
+                </div>
             </div>
 
             <div id="commercial" class="section content">
-                    commercial content
+                <div id="commercialChallenges" class="columns">
+                        <figure v-for="item in menuItems[3].data">
+                        <img :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']" >
+                        <figcaption class="challengetitle">{{ item['fields']['Titel'] }}</figcaption>
+                        <input type="text" :value="item['fields']['Code']" id="item['fields']['Code']">                              
+                        </figure>
+                </div>
             </div>
             
             <div id="apply" class="section content">

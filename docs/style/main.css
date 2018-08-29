@@ -1,3 +1,7 @@
+body
+{
+    background-color: #EBEBEB;
+}
 .content 
 {
     display: none;
@@ -7,7 +11,7 @@
 .section
 {
     width:100%;
-    background: #2db34a;
+    background: #EBEBEB;
     border-radius: 6px;
     color: #fff;
     font: 14px/24px "Source Code Pro", Inconsolata, "Lucida Console", Terminal, "Courier New", Courier;
@@ -18,14 +22,16 @@
 #mainMenu {
     text-align: center;
     width: 100%;
+    
 }
 #menuItems {
+    
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
     color: #606060;
-    background-color: rgb(255, 255, 255);
+    background-color: #EBEBEB;
     opacity: 50%;
     display: inline-block;
 }
@@ -48,3 +54,67 @@ li a:hover:not(.active) {
     background-color: #C3C3C3;
 }
 /* end menu widget */
+
+/* start challenge widget */
+.challengetitle {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: small;
+    text-transform: none;
+}
+
+.columns {
+    column-width: 300px;
+    column-gap: 15px;
+  width: 90%;
+    max-width: 1100px;
+    margin: 50px auto;
+}
+
+.columns figure {
+    background: #fefefe;
+    border: 2px solid #fcfcfc;
+    box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+    margin: 0 2px 15px;
+    padding: 15px;
+    padding-bottom: 10px;
+    /*transition: opacity .4s ease-in-out;*/
+  display: inline-block;
+  column-break-inside: avoid;
+}
+
+.columns figure img {
+    width: 100%; height: auto;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 15px;
+    margin-bottom: 5px;
+}
+
+.columns figure figcaption {
+  font-size: .9rem;
+    color: #444;
+  line-height: 1.5;
+}
+
+.columns small { 
+  font-size: 1rem;
+  float: right; 
+  text-transform: uppercase;
+  color: #aaa;
+} 
+
+div#columns small a { 
+  color: #666; 
+  text-decoration: none; 
+  transition: .4s color;
+}
+/*
+div#columns:hover figure:not(:hover) {
+    opacity: 0.4;
+}
+*/
+
+@media screen and (max-width: 750px) { 
+  .columns { column-gap: 0px; }
+  .columns figure { width: 100%; }
+}
+   /* end challenge widget */
