@@ -37,6 +37,11 @@ li a:hover:not(.active) {
 
 
 /* start challenge widget */
+.challengetitle {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: small
+}
+
 .columns {
     column-width: 200px;
     column-gap: 15px;
@@ -93,3 +98,4 @@ div#columns:hover figure:not(:hover) {
   .columns figure { width: 100%; }
 }
    /* end challenge widget */
+
