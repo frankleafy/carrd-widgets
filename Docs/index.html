@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <title>MBOChallenges.nl</title>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/vue"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
+
+        <link href='style/main.css' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        <div id="app">
+            <div id="menu" class="section">
+                <ul id="menuItems" class="buttons"></ul>     
+            </div>
+
+            <div id="home"  class="section content">                
+                
+                home content
+            </div>
+            
+            <div id="green" class="section content">
+                    <button @click="loadItems('https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Green%20Challenges')">Show challenges</button>
+                    <div id="greenChallenges" class="columns">
+                            <figure v-for="item in items">
+                            <img :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']" >
+                            <figcaption class="challengetitle">{{ item['fields']['Titel'] }}</figcaption>
+                            <input type="text" :value="item['fields']['Code']" id="item['fields']['Code']">
+                           </figure>
+                    </div>
+                    
+            </div>
+
+            <div id="social" class="section content">
+                    social content
+            </div>
+
+            <div id="commercial" class="section content">
+                    commercial content
+            </div>
+            
+            <div id="apply" class="section content">
+                    apply content
+            </div>
+
+            <div id="events" class="section content">
+                    events content
+            </div>
+            <div id="about" class="section content">
+                    about content
+            </div>
+            <div id="contact" class="section content">
+                    about contact
+            </div>
+
+
+
+            <div id="footer" class="section">
+                my footer
+            </div>
+                
+        </div>
+        <script type="text/javascript" src="js/helpers.js"></script>       
+        <script type="text/javascript" src="js/state.js"></script>
+        <script type="text/javascript" src="js/menu.js"></script>
+    </body>
+</html>

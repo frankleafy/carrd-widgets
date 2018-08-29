@@ -13,11 +13,28 @@
         </ul>            
     </div>
 -->
-    <div id="greenChallenges" class="columms">
-        <figure v-for="item in items">
-            <img :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="item['fields']['Titel']" v-if="item['fields']['Attachments']" >
-            <figcaption class="challengetitle">{{ item['fields']['Titel'] }}</figcaption>
-            <a href="#detailview"  v-on:click="loadJsonIntoTemplate('singleChallenge', item['fields']['Code'] )" >details</a>
-        </figure>
-    </div>
 
+
+
+
+<div id="greenChallenges" class="columns">
+        <figure v-for="item in items">
+        <img :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']" >
+        <figcaption class="challengetitle">{{ item['fields']['Titel'] }}</figcaption>
+        <input type="text" :value="item['fields']['Code']" id="item['fields']['Code']">
+        <a href="#detailview" onclick="loadJsonIntoTemplate('singleChallenge',singleChallengeUrl+ 1 )">Say hi</a>
+        <a href="#detailview" onclick="loadJsonIntoTemplate('singleChallenge',singleChallengeUrl+ 2 )">Say what</a>
+        </figure>
+</div>
+
+
+
+    <div id="socialChallenges" class="columns">
+            <figure v-for="item in items">
+            <img :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']" >
+            <figcaption class="challengetitle">{{ item['fields']['Titel'] }}</figcaption>
+            </figure>
+            </div>
+
+    <a href="#detailview"  v-on:click="loadJsonIntoTemplate('singleChallenge', 1 )" >details</a>
+ 

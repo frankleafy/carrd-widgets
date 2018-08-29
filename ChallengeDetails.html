@@ -13,7 +13,7 @@
         </ul>            
     </div>
 -->
-<div id="singleChallenges" class="detailsview">
+<div id="singleChallenge" class="detailsview">
     <figure v-for="item in items">
         <img :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="item['fields']['Titel']" v-if="item['fields']['Attachments']" >
         <p class="challengetitle">Id:<br>{{ item['id'] }}</p>
@@ -28,6 +28,7 @@
             Deadline: {{ item['fields']['Inschrijving'] }}<br/>
             Opdrachtgever: {{ item['fields']['Opdrachtgever']['Name'] }}<br/>
         </p>
+        <button type="button" @click="loadItems">test</button>
     </figure>
 </div>
 

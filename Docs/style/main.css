@@ -1,0 +1,50 @@
+.content 
+{
+    display: none;
+
+}
+
+.section
+{
+    width:100%;
+    background: #2db34a;
+    border-radius: 6px;
+    color: #fff;
+    font: 14px/24px "Source Code Pro", Inconsolata, "Lucida Console", Terminal, "Courier New", Courier;
+    padding: 24px 15px;
+    text-align: center;
+}
+
+#mainMenu {
+    text-align: center;
+    width: 100%;
+}
+#menuItems {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    color: #606060;
+    background-color: rgb(255, 255, 255);
+    opacity: 50%;
+    display: inline-block;
+}
+
+li {
+    float: left;
+    border-bottom: 1px solid white;
+}
+
+li a {
+    display: block;
+    color: 606060;
+    font-family: 'Source Sans Pro', sans-serif;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #C3C3C3;
+}
+/* end menu widget */
