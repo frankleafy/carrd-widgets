@@ -9,13 +9,14 @@ function updateButtons(btn)
             //2Do: Replace with css classes 'selected' and 'notselected'
             document.getElementById("button"+i).style.borderBottom = "1px solid grey";
             document.getElementById(menuItems[i].container).style.display = 'block';
-            if(menuItems[i].loaded == 0)
+            if(menuItems[i].loaded == 0 && menuItems[i].content !="")
             {
                 //alert(i);
-                menuItems[i].loaded = 1;
+                
                 loadItems(i,app.menuItems[i].content);
               
             }
+            menuItems[i].loaded = 1;
         }
         else
         {
@@ -41,11 +42,9 @@ function addMenuItem(item)
     var linkText = document.createTextNode(menuItems[item].title);
     link.appendChild(linkText);
     link.title = menuItems[item].title;
-    //link.href = "#"+menuItems[item].section;
     link.addEventListener("click", function(){ updateButtons(item); });
 
-    //link.addEventListener("@click",function(){oadItems('https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Green%20Challenges'); });
-
+   
     li.appendChild(link);
     ul.appendChild(li);
 }
