@@ -1,7 +1,8 @@
 
 function loadJsonIntoTemplate(templateContainer, JsonUrl)
 {
-    var app = new Vue({
+    var app = new Vue(
+    {
         el: '#'+templateContainer,
         data: {
             items: []
@@ -9,9 +10,6 @@ function loadJsonIntoTemplate(templateContainer, JsonUrl)
         mounted: function(){
            this.loadItems(); 
         },
-        updated: function(){
-            this.loadItems(); 
-         },
         methods: {
             loadItems: function(){
                 
