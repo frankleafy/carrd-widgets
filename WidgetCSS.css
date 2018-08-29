@@ -39,7 +39,8 @@ li a:hover:not(.active) {
 /* start challenge widget */
 .challengetitle {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: small
+    font-size: small;
+    text-transform: none;
 }
 
 .columns {

@@ -1,0 +1,32 @@
+
+<!--
+<div id="app">
+        <h1>Menu Items</h1>
+        <ul>
+            <li v-for="item in items">
+                <h3>{{ item['fields']['Item'] }}</h3>
+                <p>{{ item['fields']['Description'] }}</p>
+                <p><strong>Price: </strong>${{ item['fields']['Price'] }}</p>
+                <p><strong>Category: </strong>{{ item['fields']['Category'] }}</p>
+                <img :src="item['fields']['Photo'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Photo']" width="150">
+            </li>
+        </ul>            
+    </div>
+-->
+<div id="singleChallenges" class="detailsview">
+    <figure v-for="item in items">
+        <img :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="item['fields']['Titel']" v-if="item['fields']['Attachments']" >
+        <p class="challengeTitle">Titel:<br>{{ item['fields']['Titel'] }}</p>
+        <p class="challengeSummary">Samenvatting:<br>{{ item['fields']['Samenvatting'] }}</p>
+        <p>
+            Omschrijving:<br>
+            {{ item['fields']['Omschrijving'] }}
+        </p>
+            <a href="item['fields']['Website']" >{{ item['fields']['Website'] }}</a>
+        <p>
+            Deadline: {{ item['fields']['Inschrijving'] }}<br/>
+            Opdrachtgever: {{ item['fields']['Opdrachtgever']['Name'] }}<br/>
+        </p>
+    </figure>
+</div>
+
