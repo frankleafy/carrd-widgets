@@ -1,7 +1,6 @@
  //init
  var singleChallengeUrl = "https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Current%20Challenges&filter=";
  var app;
- var menuItems;
 
  window.onload = function () {
 
@@ -11,39 +10,43 @@
             data: {
                 name: 'Frank',
                 menuItems :[
-                    {title:"Home", section:"home", container:"home", data:[], content:"bla1.json"},
-                    {title:"Green", section:"green", container:"green", data:[], content:"https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Green%20Challenges", loaded:0},
-                    {title:"Social", section:"social", container:"social", data:[], content:"https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Social%20Challenges", loaded:0},
-                    {title:"Commercial", section:"commercial", container:"commercial", data:[], content:"https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Commercial%20Challenges", loaded:0},
-                    {title:"Apply", section:"apply", container:"apply", data:[], content:"", loaded:0},
-                    {title:"Events", section:"events", container:"events", data:[], content:"bla5.json", loaded:0},
-                    {title:"About", section:"about", container:"about", data:[], content:"bla6.json", loaded:0},
-                    {title:"Contact Us", section:"contact", container:"contact", data:[], content:"bla7.json", loaded:0},
+                    {title:"Home", pageTitle:"Home", hidden:false, section:"home", container:"home", data:[], content:"bla1.json", loaded:false},
+                    {title:"Green", pageTitle:"Sustainability challenges", hidden:false, section:"green", container:"green", data:[], content:"https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Green%20Challenges", loaded:false},
+                    {title:"Social", pageTitle:"Social challenges", hidden:false, section:"social", container:"social", data:[], content:"https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Social%20Challenges", loaded:false},
+                    {title:"Commercial", pageTitle:"Commercial challenges", hidden:false, section:"commercial", container:"commercial", data:[], content:"https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Commercial%20Challenges", loaded:false},
+                    {title:"Favorites", pageTitle:"Your favorites", hidden:false, section:"favorites", container:"favorites", data:[], content:"", loaded:false},
+                    {title:"Details", pageTitle:"Details of this challenge", hidden:true, section:"detail", container:"detail", data:[], content:"", loaded:false},
+                    {title:"Apply", pageTitle:"Apply for a challenge", hidden:false, section:"apply", container:"apply", data:[], content:"", loaded:false},
+                    {title:"Events", pageTitle:"Oncoming events", hidden:false, section:"events", container:"events", data:[], content:"bla5.json", loaded:false},
+                    {title:"About", pageTitle:"About MBO Challenges", hidden:false, section:"about", container:"about", data:[], content:"bla6.json", loaded:false},
+                    {title:"Contact", pageTitle:"Contact us", hidden:false, section:"contact", container:"contact", data:[], content:"bla7.json", loaded:false},
                     ],
-                selectedItem: []
+                selectedItems: [],
+                itemDetails:[]
             },
             mounted: function(){
-                menuItems =this.menuItems;
-               loadButtonsAndHomeContent(); //to be rebuild to Vue.js
-
             },
             methods: {               
-                loadItems : function(target,JsonUrl)
+                loadItems : function(target)
                 {
-                    loadItems(target,JsonUrl)
+                    loadItems(target)
                 },
                 selectItem : function(challenge)
                 {
-                    this.selectedItem.push(challenge);
-                    updateButtons(4);
-                   // alert(this.selectedItem[0].fields.Titel);
+                    this.selectedItems.push(challenge);
+                    //alert(this.selectedItems[0].fields.Titel);
                 }
                 ,
                 deleteItem : function(challenge)
                 {
-                    this.$delete(this.selectedItem, challenge)                    
-                    updateButtons(4);
+                    this.$delete(this.selectedItems, challenge);                    
                     
+                },
+                getItemDetails: function(challenge)
+                {
+                    if(this.itemDetails.length > 0)this.itemDetails.pop();
+                    this.itemDetails.push(challenge);      
+                    setContentContainer(5);  
                 }
                 
             }
@@ -53,28 +56,53 @@
         
     };
 
-    
+function setContentContainer(target)
+{
+    document.getElementById("titleHeader").innerText = app.menuItems[target].pageTitle;
+    for (var i = 0; i < app.menuItems.length; i++) 
+    { 
+        var placeholder = document.getElementById(app.menuItems[i].container);
+        
+        if(i == target)
+        {
+            if(placeholder)placeholder.style.cssText = null;
+        }
+        else
+        {
+            if(placeholder)placeholder.style.display = 'none';
+        }
+    }
+}
 
   
-function loadItems(target, JsonUrl)
+function loadItems(target)
 {
     // Init variables
     var self = app;
-    
-    axios.get
-    (
-        JsonUrl, //google script, NOT Airtable
-        { 
-        }
-    ).then(function(response)
+
+    setContentContainer(target)
+
+    if(self.menuItems[target].content !="" && !self.menuItems[target].loaded)
     {
-        self.menuItems[target].data=response.data.records;
-        
-    }).catch
-    (
-        function(error)
+        document.getElementById("status").style.display = 'block';
+        axios.get
+        (
+            self.menuItems[target].content, //google script, NOT Airtable
+            { 
+            }
+        ).then(function(response)
         {
-        console.log(error)
-        }
-    )
+            document.getElementById("status").style.display = 'none';
+            self.menuItems[target].data=response.data.records;
+            self.menuItems[target].loaded = true;
+            
+        }).catch
+        (
+            function(error)
+            {
+            console.log(error)
+            document.getElementById("status").style.display = 'none';
+            }
+        )
+    }
 }
