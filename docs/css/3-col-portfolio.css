@@ -27,3 +27,13 @@ body {
   text-align: center;
   display: none;
 }
+
+.content 
+{
+    display: none;
+
+}
+.loader
+{
+  font-size: small;
+}

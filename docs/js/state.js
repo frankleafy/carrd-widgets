@@ -3,28 +3,30 @@
  var app;
 
  window.onload = function () {
-
         app = new Vue(
         {
             el: '#app',
             data: {
                 name: 'Frank',
                 menuItems :[
-                    {title:"Home", pageTitle:"Home", hidden:false, section:"home", container:"home", data:[], content:"bla1.json", loaded:false},
+                    {title:"Home", pageTitle:"Home", hidden:false, section:"home", container:"home", data:[], content:"", loaded:false},
                     {title:"Green", pageTitle:"Sustainability challenges", hidden:false, section:"green", container:"green", data:[], content:"https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Green%20Challenges", loaded:false},
                     {title:"Social", pageTitle:"Social challenges", hidden:false, section:"social", container:"social", data:[], content:"https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Social%20Challenges", loaded:false},
                     {title:"Commercial", pageTitle:"Commercial challenges", hidden:false, section:"commercial", container:"commercial", data:[], content:"https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Commercial%20Challenges", loaded:false},
                     {title:"Favorites", pageTitle:"Your favorites", hidden:false, section:"favorites", container:"favorites", data:[], content:"", loaded:false},
                     {title:"Details", pageTitle:"Details of this challenge", hidden:true, section:"detail", container:"detail", data:[], content:"", loaded:false},
                     {title:"Apply", pageTitle:"Apply for a challenge", hidden:false, section:"apply", container:"apply", data:[], content:"", loaded:false},
-                    {title:"Events", pageTitle:"Oncoming events", hidden:false, section:"events", container:"events", data:[], content:"bla5.json", loaded:false},
-                    {title:"About", pageTitle:"About MBO Challenges", hidden:false, section:"about", container:"about", data:[], content:"bla6.json", loaded:false},
-                    {title:"Contact", pageTitle:"Contact us", hidden:false, section:"contact", container:"contact", data:[], content:"bla7.json", loaded:false},
+                    {title:"Events", pageTitle:"Oncoming events", hidden:false, section:"events", container:"events", data:[], content:"", loaded:false},
+                    {title:"About", pageTitle:"About MBO Challenges", hidden:false, section:"about", container:"about", data:[], content:"", loaded:false},
+                    {title:"Contact", pageTitle:"Contact us", hidden:false, section:"contact", container:"contact", data:[], content:"", loaded:false},
                     ],
                 selectedItems: [],
                 itemDetails:[]
             },
             mounted: function(){
+                   // alert(localStorage.getItem('selected')[2]);
+                   if(localStorage.bookmarks) this.selectedItems = JSON.parse(localStorage.bookmarks);
+                
             },
             methods: {               
                 loadItems : function(target)
@@ -34,12 +36,13 @@
                 selectItem : function(challenge)
                 {
                     this.selectedItems.push(challenge);
-                    //alert(this.selectedItems[0].fields.Titel);
+                    localStorage.bookmarks = JSON.stringify(this.selectedItems);
                 }
                 ,
                 deleteItem : function(challenge)
                 {
-                    this.$delete(this.selectedItems, challenge);                    
+                    this.$delete(this.selectedItems, challenge);     
+                    localStorage.bookmarks = JSON.stringify(this.selectedItems);               
                     
                 },
                 getItemDetails: function(challenge)
@@ -51,6 +54,7 @@
                 
             }
         });
+
 
        
         
@@ -65,7 +69,9 @@ function setContentContainer(target)
         
         if(i == target)
         {
-            if(placeholder)placeholder.style.cssText = null;
+            if(placeholder)placeholder.style.cssText = 'block';
+            var stateObj = { foo: "bar" };
+            window.history.pushState(stateObj, "page "+i, app.menuItems[i].title+".html");
         }
         else
         {

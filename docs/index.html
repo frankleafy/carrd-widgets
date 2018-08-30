@@ -37,9 +37,10 @@
                 <li v-for="(menuItem,index) in menuItems" class="nav-item" v-if="menuItem.hidden==false">
       
                     <a class="nav-link" href="#" @click="loadItems(index)">
-                        {{ menuItem.title }}
+                        {{ menuItem.title }} <span v-if="menuItem.title=='Favorites' && selectedItems.length >0">({{ selectedItems.length }})</span>
                         <span class="sr-only">(current)</span>
                     </a>
+                     
                 </li>
           </ul>
         </div>
@@ -51,14 +52,18 @@
             <h1 id="titleHeader" class="my-4">MBO Challenges <small>meaningful learning</small></h1>
 
       <!-- Page Heading -->
-      <div id="home" class="row">
+      <div id="home" class="row" style="display:none">
 
     </div>
 
-      <div id="status" class="section content">
-            <h1 class="my-4">Loading challenges..</h1>
+      <div id="status" class="section content" style="display:none">
+        <p>
             <img src="images/Infinity-4.2s-160px.gif">
+            <h1 class="my-4 loader" >Loading challenges..</h1>
          </div>
+        </p>
+      
+
      <!-- 
       <div id="greenChallenges" class="columns">
             <figure v-for="item in menuItems[1].data">
@@ -69,7 +74,7 @@
             </figure>
     </div>
  -->
-      <div id="green" class="row">
+      <div id="green" class="row" style="display:none">
 
         <div class="col-lg-4 col-sm-6 portfolio-item" v-for="item in menuItems[1].data">
           <div class="card h-100">
@@ -87,7 +92,7 @@
 
       </div>
 
-      <div id="social" class="row">
+      <div id="social" class="row" style="display:none">
 
             <div class="col-lg-4 col-sm-6 portfolio-item" v-for="item in menuItems[2].data">
               <div class="card h-100">
@@ -105,7 +110,7 @@
             
         </div>
 
-        <div id="commercial" class="row">
+        <div id="commercial" class="row"  style="display:none">
 
             <div class="col-lg-4 col-sm-6 portfolio-item" v-for="item in menuItems[3].data">
                 <div class="card h-100">
@@ -123,8 +128,11 @@
             
         </div>
 
-        <div id="favorites" class="row">
-
+        <div id="favorites" class="row" style="display:none">
+            <div v-if="selectedItems.length == 0" class="col-lg-4 col-sm-6">
+              You haven't favorited any challenges yet...<br/><br/>
+            </div>
+            
             <div class="col-lg-4 col-sm-6 portfolio-item" v-for="(item, index) in selectedItems">
                 <div class="card h-100">
                 <a href="#"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']"></a>
@@ -142,7 +150,7 @@
         </div>
 
 
-        <div id="detail" class="row">
+        <div id="detail" class="row" style="display:none"> 
 
                 <div class="col-lg-4 col-sm-6 portfolio-item" v-for="(item, index) in itemDetails">
                     <div class="card h-100">
@@ -160,7 +168,8 @@
             </div>
       <!-- /.row -->
 
-      <!-- Pagination -->
+      <!-- Pagination 
+      <div id="pagination" class="row"></div>
       <ul class="pagination justify-content-center">
         <li class="page-item">
           <a class="page-link" href="#" aria-label="Previous">
@@ -184,14 +193,17 @@
           </a>
         </li>
       </ul>
-
     </div>
+  
+    -->
+    <br/>        <br/>
+  </div>
     <!-- /.container -->
 
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+        <p class="m-0 text-center text-white">Blokhuisplein 40, 8911 LJ Leeuwarden</p>
       </div>
       <!-- /.container -->
     </footer>
