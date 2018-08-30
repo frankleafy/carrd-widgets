@@ -2,6 +2,11 @@
  var singleChallengeUrl = "https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Current%20Challenges&filter=";
  var app;
 
+ window.onhashchange = function() { 
+    //code  
+    this.alert(window.location.pathname);
+}
+
  window.onload = function () {
         app = new Vue(
         {
