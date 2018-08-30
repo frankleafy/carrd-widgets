@@ -76,7 +76,7 @@ function setContentContainer(target)
         {
             if(placeholder)placeholder.style.cssText = 'block';
             var stateObj = { foo: "bar" };
-            window.history.pushState(stateObj, "page "+i, app.menuItems[i].title+".html");
+            window.history.pushState(stateObj, "page "+i, "#"+app.menuItems[i].title);
         }
         else
         {
