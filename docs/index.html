@@ -11,6 +11,8 @@
     <title>mbo challenges</title>
     <link rel="icon" href="favicon.ico">
     <script type="text/javascript" src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/marked@0.3.6"></script>
+    <script src="https://unpkg.com/lodash@4.16.0"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
 
     <!-- Bootstrap core CSS -->
@@ -35,12 +37,13 @@
           <ul class="navbar-nav ml-auto">
 
                 <li v-for="(menuItem,index) in menuItems" class="nav-item" v-if="menuItem.hidden==false">
-      
-                    <a class="nav-link" :href="'#'+menuItem.title" @click="loadItems(index)">
+                  
+                    <a class="nav-link active" :href="'#'+menuItem.title" @click="loadItems(index)" v-if="menuItem.selected">
                         {{ menuItem.title }} <span v-if="menuItem.title=='Favorites' && selectedItems.length >0">({{ selectedItems.length }})</span>
-                        <span class="sr-only">(current)</span>
                     </a>
-                     
+                    <a class="nav-link" :href="'#'+menuItem.title" @click="loadItems(index)" v-if="menuItem.selected == false">
+                        {{ menuItem.title }} <span v-if="menuItem.title=='Favorites' && selectedItems.length >0">({{ selectedItems.length }})</span>
+                    </a>                 
                 </li>
           </ul>
         </div>
@@ -81,7 +84,7 @@
             <a href="#"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']"></a>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="#">{{ item['fields']['Titel'] }}</a>
+                  <div v-html="compiledMarkdown(item['fields']['Titel'])"></div>
               </h4>
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
             </div>
@@ -99,7 +102,7 @@
                 <a href="#"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']"></a>
                 <div class="card-body">
                   <h4 class="card-title">
-                    <a href="#">{{ item['fields']['Titel'] }}</a>
+                      <div v-html="compiledMarkdown(item['fields']['Titel'])"></div>
                   </h4>
                   <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
                 </div>
@@ -117,7 +120,7 @@
                 <a href="#"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']"></a>
                 <div class="card-body">
                     <h4 class="card-title">
-                    <a href="#">{{ item['fields']['Titel'] }}</a>
+                        <div v-html="compiledMarkdown(item['fields']['Titel'])"></div>
                     </h4>
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
                 </div>
@@ -138,7 +141,7 @@
                 <a href="#"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']"></a>
                 <div class="card-body">
                     <h4 class="card-title">
-                    <a href="#">{{ item['fields']['Titel'] }}</a>
+                        <div v-html="compiledMarkdown(item['fields']['Titel'])"></div>
                     </h4>
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
                 </div>
@@ -157,7 +160,7 @@
                     <a href="#"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']"></a>
                     <div class="card-body">
                         <h4 class="card-title">
-                        <a href="#">{{ item['fields']['Titel'] }}</a>
+                            <div v-html="compiledMarkdown(item['fields']['Titel'])"></div>
                         </h4>
                         <p class="card-text">detail view</p>
                     </div>
@@ -209,6 +212,7 @@
     </footer>
 </div>
     <!-- Bootstrap core JavaScript -->
+    <script src="https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js"></script>
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="js/state.js"></script>
