@@ -28,7 +28,7 @@
                 input: '# hello',
                 currentPage: '',
                 menuItems :[
-                    {title:"Home", pageTitle:"Home", hidden:false, section:"home", container:"home", data:[], content:"", loaded:false, selected:true},
+                    {title:"Home", pageTitle:"__MBO__*Challenges*, purposeful learning", hidden:false, section:"home", container:"home", data:[], content:"", loaded:false, selected:true},
                     {title:"Green", pageTitle:"Sustainability challenges", hidden:false, section:"green", container:"green", data:[], content:"https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Green%20Challenges", loaded:false, selected:false},
                     {title:"Social", pageTitle:"Social challenges", hidden:false, section:"social", container:"social", data:[], content:"https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Social%20Challenges", loaded:false, selected:false},
                     {title:"Commercial", pageTitle:"Commercial challenges", hidden:false, section:"commercial", container:"commercial", data:[], content:"https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Commercial%20Challenges", loaded:false, selected:false},
@@ -89,7 +89,7 @@
 
 function setContentContainer(target)
 {
-    document.getElementById("titleHeader").innerText = app.menuItems[target].pageTitle;
+    //document.getElementById("titleHeader").innerText = app.menuItems[target].pageTitle;
     for (var i = 0; i < app.menuItems.length; i++) 
     { 
         var placeholder = document.getElementById(app.menuItems[i].container);

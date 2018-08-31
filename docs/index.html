@@ -1,50 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <title>mbo challenges</title>
-    <link rel="icon" href="favicon.ico">
-    <script type="text/javascript" src="https://unpkg.com/vue"></script>
-    <script src="https://unpkg.com/marked@0.3.6"></script>
-    <script src="https://unpkg.com/lodash@4.16.0"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <title>mbo challenges</title>
+  <link rel="icon" href="favicon.ico">
+  <script type="text/javascript" src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/marked@0.3.6"></script>
+  <script src="https://unpkg.com/lodash@4.16.0"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    crossorigin="anonymous">
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="css/3-col-portfolio.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css/3-col-portfolio.css" rel="stylesheet">
 
-  </head>
+</head>
 
-  <body >
-    <div id="app">
+<body>
+  <div id="app">
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
         <a class="navbar-brand" href="#">MBO<i>Challenges.nl</i></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+          aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
 
-                <li v-for="(menuItem,index) in menuItems" class="nav-item" v-if="menuItem.hidden==false">
-                  
-                    <a class="nav-link active" :href="'#'+menuItem.title" @click="loadItems(index)" v-if="menuItem.selected">
-                        {{ menuItem.title }} <span v-if="menuItem.title=='Favorites' && selectedItems.length >0">({{ selectedItems.length }})</span>
-                    </a>
-                    <a class="nav-link" :href="'#'+menuItem.title" @click="loadItems(index)" v-if="menuItem.selected == false">
-                        {{ menuItem.title }} <span v-if="menuItem.title=='Favorites' && selectedItems.length >0">({{ selectedItems.length }})</span>
-                    </a>                 
-                </li>
+            <li v-for="(menuItem,index) in menuItems" class="nav-item" v-if="menuItem.hidden==false">
+
+              <a class="nav-link active" :href="'#'+menuItem.title" @click="loadItems(index)" v-if="menuItem.selected">
+                {{ menuItem.title }} <span v-if="menuItem.title=='Favorites' && selectedItems.length >0">({{ selectedItems.length
+                  }})
+                </span>
+              </a>
+              <a class="nav-link" :href="'#'+menuItem.title" @click="loadItems(index)" v-if="menuItem.selected == false">
+                {{ menuItem.title }} <span v-if="menuItem.title=='Favorites' && selectedItems.length >0">({{ selectedItems.length
+                  }})
+                </span>
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -52,141 +58,94 @@
 
     <!-- Page Content -->
     <div class="container">
-            <h1 id="titleHeader" class="my-4">MBO Challenges <small>meaningful learning</small></h1>
+      <div v-for="(menuItem, index) in menuItems" v-if="menuItem.selected">
+        <br/>
+        <h1 id="titleHeader" v-html="compiledMarkdown(menuItem.pageTitle)"></h1>
+      </div>
+
 
       <!-- Page Heading -->
-      <div id="home" class="row" style="display:none">
-
-    </div>
+      <div id="home" class="row">
+        <div class="col-lg-4 col-sm-6">
+            Choose your challenge!
+        </div>
+      </div>
 
       <div id="status" class="section content" style="display:none">
         <p>
-            <img src="images/Infinity-4.2s-160px.gif">
-            <h1 class="my-4 loader" >Loading challenges..</h1>
-         </div>
-        </p>
-      
+          <img src="images/Infinity-4.2s-160px.gif">
+          <h1 class="my-4 loader">Loading challenges..</h1>
+      </div>
+      </p>
 
-     <!-- 
-      <div id="greenChallenges" class="columns">
-            <figure v-for="item in menuItems[1].data">
-            <img :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']" >
-            <figcaption class="challengetitle">{{ item['fields']['Titel'] }}</figcaption>
-            <input type="text" :value="item['fields']['Code']" id="item['fields']['Code']">      
-            <button type="button" @click="selectItem(item)">save</button>                        
-            </figure>
-    </div>
- -->
-      <div id="green" class="row" style="display:none">
+      <div v-for="(menuItem, index) in menuItems" v-if="index >0 && index <5">
+        <div :id="menuItem.title" class="row" v-if="menuItem.selected">
+          <div v-if="selectedItems.length == 0 && index==4" class="col-lg-4 col-sm-6">
+            You haven't favorited any challenges yet...<br/><br/>
+          </div>
+          <div class="col-lg-4 col-sm-6 portfolio-item" v-for="item in menuItems[index].data">
+            <div class="card h-100">
+              <a href="#"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']"
+                  alt="" v-if="item['fields']['Attachments']"></a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <div v-html="compiledMarkdown(item['fields']['Titel'])"></div>
+                </h4>
+                <div class="card-text" v-html="compiledMarkdown(item['fields']['Samenvatting'].substring(0,250)+'...')"></div>
+              </div>
+              <button class="pure-button" @click="selectItem(item)" onclick="this.disabled=true;">
+                <i class="far fa-star"></i>
+                Add to favorites
+              </button>
+              <button class="pure-button" @click="getItemDetails(item)">
+                <i class="fas fa-info-circle"></i>
+                Show details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        <div class="col-lg-4 col-sm-6 portfolio-item" v-for="item in menuItems[1].data">
+      <div id="favorites" class="row" style="display:none">
+        <div v-if="selectedItems.length == 0" class="col-lg-4 col-sm-6">
+          You haven't favorited any challenges yet...<br/><br/>
+        </div>
+
+        <div class="col-lg-4 col-sm-6 portfolio-item" v-for="(item, index) in selectedItems">
           <div class="card h-100">
-            <a href="#"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']"></a>
+            <a href="#"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt=""
+                v-if="item['fields']['Attachments']"></a>
             <div class="card-body">
               <h4 class="card-title">
-                  <div v-html="compiledMarkdown(item['fields']['Titel'])"></div>
+                <div v-html="compiledMarkdown(item['fields']['Titel'])"></div>
               </h4>
-              <div class="card-text" v-html="compiledMarkdown(item['fields']['Samenvatting'].substring(0,250)+'...')"></div>           </div>
-            <button class="pure-button" @click="selectItem(item)" onclick="this.disabled=true;" >
-                <i class="far fa-star"></i>
-                Save
-            </button>
-            <button class="pure-button" @click="getItemDetails(item)" >
-                <i class="fas fa-info-circle"></i>
-                Details
-            </button>
+              <div class="card-text" v-html="compiledMarkdown(item['fields']['Samenvatting'].substring(0,250)+'...')"></div>
+            </div>
+            <button type="button" @click="deleteItem(index)">remove</button>
+            <button type="button" @click="getItemDetails(item)">details</button>
           </div>
         </div>
 
       </div>
 
-      <div id="social" class="row" style="display:none">
 
-            <div class="col-lg-4 col-sm-6 portfolio-item" v-for="item in menuItems[2].data">
-              <div class="card h-100">
-                <a href="#"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']"></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                      <div v-html="compiledMarkdown(item['fields']['Titel'])"></div>
-                  </h4>
-                  <div class="card-text" v-html="compiledMarkdown(item['fields']['Samenvatting'].substring(0,250)+'...')"></div>               
-                </div>
-                <button class="pure-button" @click="selectItem(item)" onclick="this.disabled=true;" >
-                    <i class="far fa-star"></i>
-                    Save
-                </button>
-                <button class="pure-button" @click="getItemDetails(item)" >
-                    <i class="fas fa-info-circle"></i>
-                    Details
-                </button> 
-              </div>
+      <div id="detail" class="row" style="display:none">
+
+        <div class="col-lg-4 col-sm-6 portfolio-item" v-for="(item, index) in itemDetails">
+          <div class="card h-100">
+            <a href="#"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt=""
+                v-if="item['fields']['Attachments']"></a>
+            <div class="card-body">
+              <h4 class="card-title">
+                <div v-html="compiledMarkdown(item['fields']['Titel'])"></div>
+              </h4>
+              <p class="card-text">detail view</p>
             </div>
-            
+            <button type="button" @click="deleteItem(index)">remove</button>
+          </div>
         </div>
 
-        <div id="commercial" class="row"  style="display:none">
-
-            <div class="col-lg-4 col-sm-6 portfolio-item" v-for="item in menuItems[3].data">
-                <div class="card h-100">
-                <a href="#"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']"></a>
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <div v-html="compiledMarkdown(item['fields']['Titel'])"></div>
-                    </h4>
-                    <div class="card-text" v-html="compiledMarkdown(item['fields']['Samenvatting'].substring(0,250)+'...')"></div>           
-                  </div>
-                <button class="pure-button" @click="selectItem(item)" onclick="this.disabled=true;" >
-                    <i class="far fa-star"></i>
-                    Save
-                </button>
-                <button class="pure-button" @click="getItemDetails(item)" >
-                    <i class="fas fa-info-circle"></i>
-                    Details
-                </button>
-          
-                </div>
-            </div>
-            
-        </div>
-
-        <div id="favorites" class="row" style="display:none">
-            <div v-if="selectedItems.length == 0" class="col-lg-4 col-sm-6">
-              You haven't favorited any challenges yet...<br/><br/>
-            </div>
-            
-            <div class="col-lg-4 col-sm-6 portfolio-item" v-for="(item, index) in selectedItems">
-                <div class="card h-100">
-                <a href="#"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']"></a>
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <div v-html="compiledMarkdown(item['fields']['Titel'])"></div>
-                    </h4>
-                    <div class="card-text" v-html="compiledMarkdown(item['fields']['Samenvatting'].substring(0,250)+'...')"></div>
-                 </div>
-                <button type="button" @click="deleteItem(index)">remove</button>   
-                <button type="button" @click="getItemDetails(item)">details</button> 
-                </div>
-            </div>
-            
-        </div>
-
-
-        <div id="detail" class="row" style="display:none"> 
-
-                <div class="col-lg-4 col-sm-6 portfolio-item" v-for="(item, index) in itemDetails">
-                    <div class="card h-100">
-                    <a href="#"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']"></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <div v-html="compiledMarkdown(item['fields']['Titel'])"></div>
-                        </h4>
-                        <p class="card-text">detail view</p>
-                    </div>
-                    <button type="button" @click="deleteItem(index)">remove</button>   
-                    </div>
-                </div>
-                
-            </div>
+      </div>
       <!-- /.row -->
 
       <!-- Pagination 
@@ -217,8 +176,8 @@
     </div>
   
     -->
-    <br/>        <br/>
-  </div>
+      <br/> <br/>
+    </div>
     <!-- /.container -->
 
     <!-- Footer -->
@@ -228,13 +187,13 @@
       </div>
       <!-- /.container -->
     </footer>
-</div>
-    <!-- Bootstrap core JavaScript -->
-    <script src="https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js"></script>
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="js/state.js"></script>
+  </div>
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js"></script>
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="js/state.js"></script>
 
-  </body>
+</body>
 
 </html>
