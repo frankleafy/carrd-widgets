@@ -73,10 +73,7 @@
                 compiledMarkdown: function (source) 
                 {
                   return marked(source, { sanitize: true })
-                },
-                update: _.debounce(function (e) {
-                    this.input = e.target.value
-                  }, 300)
+                }
                 
             },
             computed: 
