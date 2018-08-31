@@ -43,7 +43,7 @@
                 itemDetails:[]
             },
             mounted: function(){
-                   if(localStorage.bookmarks) this.selectedItems = JSON.parse(localStorage.bookmarks);
+                   if(localStorage.bookmarks) this.menuItems[4].data = JSON.parse(localStorage.bookmarks);
                 
             },
             methods: 
@@ -54,14 +54,15 @@
                 },
                 selectItem : function(challenge)
                 {
-                    this.selectedItems.push(challenge);
-                    localStorage.bookmarks = JSON.stringify(this.selectedItems);
+                    //this.selectedItems.push(challenge);
+                    this.menuItems[4].data.push(challenge);
+                    localStorage.bookmarks = JSON.stringify(this.menuItems[4].data);
                 }
                 ,
                 deleteItem : function(challenge)
                 {
-                    this.$delete(this.selectedItems, challenge);     
-                    localStorage.bookmarks = JSON.stringify(this.selectedItems);               
+                    this.$delete(this.menuItems[4].data, challenge)
+                    localStorage.bookmarks = JSON.stringify(this.menuItems[4].data);               
                     
                 },
                 getItemDetails: function(challenge)

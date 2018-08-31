@@ -41,12 +41,12 @@
             <li v-for="(menuItem,index) in menuItems" class="nav-item" v-if="menuItem.hidden==false">
 
               <a class="nav-link active" :href="'#'+menuItem.title" @click="loadItems(index)" v-if="menuItem.selected">
-                {{ menuItem.title }} <span v-if="menuItem.title=='Favorites' && selectedItems.length >0">({{ selectedItems.length
+                {{ menuItem.title }} <span v-if="menuItem.title=='Favorites' && menuItems[4].data.length >0">({{ menuItems[4].data.length
                   }})
                 </span>
               </a>
               <a class="nav-link" :href="'#'+menuItem.title" @click="loadItems(index)" v-if="menuItem.selected == false">
-                {{ menuItem.title }} <span v-if="menuItem.title=='Favorites' && selectedItems.length >0">({{ selectedItems.length
+                {{ menuItem.title }} <span v-if="menuItem.title=='Favorites' && menuItems[4].data.length >0">({{ menuItems[4].data.length
                   }})
                 </span>
               </a>
@@ -67,7 +67,7 @@
       <!-- Page Heading -->
       <div id="home" class="row">
         <div class="col-lg-4 col-sm-6">
-            Choose your challenge!
+          Choose your challenge!
         </div>
       </div>
 
@@ -78,12 +78,12 @@
       </div>
       </p>
 
-      <div v-for="(menuItem, index) in menuItems" v-if="index >0 && index <5">
+      <div v-for="(menuItem, index) in menuItems" v-if="index >0 && index <6">
         <div :id="menuItem.title" class="row" v-if="menuItem.selected">
-          <div v-if="selectedItems.length == 0 && index==4" class="col-lg-4 col-sm-6">
+          <div v-if="menuItems[4].data.length == 0 && index==4" class="col-lg-4 col-sm-6">
             You haven't favorited any challenges yet...<br/><br/>
           </div>
-          <div class="col-lg-4 col-sm-6 portfolio-item" v-for="item in menuItems[index].data">
+          <div class="col-lg-4 col-sm-6 portfolio-item" v-for="(item, findex) in menuItems[index].data">
             <div class="card h-100">
               <a href="#"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']"
                   alt="" v-if="item['fields']['Attachments']"></a>
@@ -93,19 +93,30 @@
                 </h4>
                 <div class="card-text" v-html="compiledMarkdown(item['fields']['Samenvatting'].substring(0,250)+'...')"></div>
               </div>
-              <button class="pure-button" @click="selectItem(item)" onclick="this.disabled=true;">
-                <i class="far fa-star"></i>
-                Add to favorites
-              </button>
-              <button class="pure-button" @click="getItemDetails(item)">
-                <i class="fas fa-info-circle"></i>
-                Show details
-              </button>
+             
+                <div class="col-lg-4 col-sm-6 button-div">
+                  <span v-if="index!=4">
+                    <button class="pure-button btn btn-success" @click="selectItem(item)" onclick="this.disabled=true;">
+                      <i class="far fa-star"></i>
+                      Add to favorites
+                    </button>
+                  </span>
+                  <span v-if="index==4">
+                    <button class="pure-button btn btn-danger" @click="deleteItem(findex)">
+                      <i class="far fa-trash-alt"></i>
+                      Remove
+                    </button>
+                  </span>
+                  <button class="pure-button btn btn-info" @click="getItemDetails(item)">
+                    <i class="fas fa-info-circle"></i>
+                    Show details
+                  </button>
+                </div>
+                </div>
             </div>
           </div>
         </div>
-      </div>
-
+        <!--
       <div id="favorites" class="row" style="display:none">
         <div v-if="selectedItems.length == 0" class="col-lg-4 col-sm-6">
           You haven't favorited any challenges yet...<br/><br/>
@@ -127,28 +138,28 @@
         </div>
 
       </div>
+    -->
 
+        <div id="detail" class="row" style="display:none">
 
-      <div id="detail" class="row" style="display:none">
-
-        <div class="col-lg-4 col-sm-6 portfolio-item" v-for="(item, index) in itemDetails">
-          <div class="card h-100">
-            <a href="#"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt=""
-                v-if="item['fields']['Attachments']"></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <div v-html="compiledMarkdown(item['fields']['Titel'])"></div>
-              </h4>
-              <p class="card-text">detail view</p>
+          <div class="col-lg-4 col-sm-6 portfolio-item" v-for="(item, index) in itemDetails">
+            <div class="card h-100">
+              <a href="#"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']"
+                  alt="" v-if="item['fields']['Attachments']"></a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <div v-html="compiledMarkdown(item['fields']['Titel'])"></div>
+                </h4>
+                <p class="card-text">detail view</p>
+              </div>
+              <button type="button" @click="deleteItem(index)">remove</button>
             </div>
-            <button type="button" @click="deleteItem(index)">remove</button>
           </div>
+
         </div>
+        <!-- /.row -->
 
-      </div>
-      <!-- /.row -->
-
-      <!-- Pagination 
+        <!-- Pagination 
       <div id="pagination" class="row"></div>
       <ul class="pagination justify-content-center">
         <li class="page-item">
@@ -176,23 +187,24 @@
     </div>
   
     -->
-      <br/> <br/>
-    </div>
-    <!-- /.container -->
-
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Blokhuisplein 40, 8911 LJ Leeuwarden</p>
+        <br/> <br/>
       </div>
       <!-- /.container -->
-    </footer>
-  </div>
-  <!-- Bootstrap core JavaScript -->
-  <script src="https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js"></script>
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script type="text/javascript" src="js/state.js"></script>
+
+      <!-- Footer -->
+      <footer class="py-5 bg-dark">
+        <div class="container">
+          <p class="m-0 text-center text-white">Blokhuisplein 40, 8911 LJ Leeuwarden</p>
+        </div>
+        <!-- /.container -->
+      </footer>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js"></script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="js/state.js"></script>
 
 </body>
 
