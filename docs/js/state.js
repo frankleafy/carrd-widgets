@@ -126,6 +126,11 @@
                    var month = source.substring(5,7);
                    var day = source.substring(8)  
                     return day +"-"+ month+"-"+year;
+                },
+                castToString: function castToString(source)
+                {
+                    return ""+ source;
+
                 }
                 
             },
@@ -145,7 +150,7 @@
                 {
                  //   alert('load '+i);
                     loadItems(i);
-                    document.getElementById('app').scrollIntoView();
+                    document.getElementById('body').scrollIntoView();
                     break;
                 } 
             }

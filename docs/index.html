@@ -23,10 +23,10 @@
 
   <!-- Custom styles for this template -->
   <link href="css/3-col-portfolio.css" rel="stylesheet">
-
+  
 </head>
 
-<body>
+<body id="body">
   <div id="app">
 
     <!-- Navigation-->
@@ -82,14 +82,18 @@
             You haven't favorited any challenges yet...<br/><br/>
           </div>
           <div class="col-lg-4 col-sm-6 portfolio-item" v-for="(item, findex) in menuItems[index].data">
+              
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']"
-                  alt="" v-if="item['fields']['Attachments']"></a>
+                <router-link :to="'Details'" class="router-link">
+              <a href="#" @click="getItemDetails(item)"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']"
+                  alt="" v-if="item['fields']['Attachments']" ></a>
+                  </router-link>
               <div class="card-body">
                 <h4 class="card-title">
                   <div v-html="compiledMarkdown(item['fields']['Titel'])"></div>
                 </h4>
                 <div class="card-text" v-html="compiledMarkdown(item['fields']['Samenvatting'].substring(0,250)+'...')"></div>
+                <div v-html="'<br/>Deadline inschrijving: '+formatDate(item['fields']['Inschrijving'])"></div>
                 <p>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>
                 </p>
               </div>
@@ -126,7 +130,14 @@
 
         <div class="col-md-4 portfolio-item">
           <img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']">
-          <div v-html="'<br/>Deadline inschrijving: '+formatDate(item['fields']['Inschrijving'])"></div>
+          <div v-html="'<br/><center>Deadline inschrijving: '+formatDate(item['fields']['Inschrijving'])+ '</center><br/>'"></div>
+         <!-- <img class="card-img-top" :src="item['fields'][O_Logo][0]['Attachments'][0]['thumbnails']['large']['url']" alt="" > -->
+         <img class="card-img-top"   v-if="item['fields']['O_LogoUrl']" :src="castToString(item['fields']['O_LogoUrl'])">
+         <br/>&nbsp;<br/>
+          <h2 v-if="item['fields']['O_Naam']" v-html="compiledMarkdown(castToString(item['fields']['O_Naam']))"></h2>
+          <div v-if="item['fields']['O_Omschrijving']"  v-html="compiledMarkdown(castToString(item['fields']['O_Omschrijving']))"></div>
+          <a v-if="item['fields']['O_Website']" :href="castToString(item['fields']['O_Website'])" target="_blank">{{castToString(item['fields']['O_Website'])}}</a>
+     
         </div>
         <div class="col-md-8 portfolio-item">
           <h1 v-html="compiledMarkdown(item['fields']['Titel'])"></h1>
