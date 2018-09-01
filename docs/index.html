@@ -65,14 +65,14 @@
           Choose your challenge!
         </div>
       </div>
-
+      <!-- Status -->
       <div id="status" class="section content" style="display:none">
         <p>
           <img src="images/Infinity-4.2s-160px.gif">
           <h1 class="my-4 loader">Loading challenges..</h1>
       </div>
       </p>
-
+      <!-- content -->
       <div v-for="(menuItem, index) in menuItems" v-if="index >0 && index <6">
         <div :id="menuItem.title" class="row" v-if="menuItem.selected">
           <div v-if="menuItems[4].data.length == 0 && index==4" class="col-lg-4 col-sm-6">
@@ -114,7 +114,7 @@
           </div>
         </div>
       </div>
-
+      <!-- detail view -->
       <div id="detail" class="row" style="display:none">
 
         <div class="col-lg-4 col-sm-6 portfolio-item" v-for="(item, index) in itemDetails">
@@ -132,6 +132,8 @@
         </div>
 
       </div>
+
+      
       <!-- /.row -->
 
       <!-- Pagination 
