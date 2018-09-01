@@ -29,7 +29,7 @@
 <body>
   <div id="app">
 
-    <!-- Navigation v-on:click="loadItems(index)"-->
+    <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" data-toggle="collapse" data-target=".navbar-collapse.show">
       <div class="container">
         <a class="navbar-brand" href="#">MBO<i>Challenges.nl</i></a>
@@ -41,10 +41,8 @@
           <ul class="navbar-nav ml-auto">
             <li v-for="(menuItem,index) in menuItems" v-if="menuItem.hidden==false">
               <router-link :to="menuItem.title" class="router-link">
-                <span style="white-space:nowrap;" >
                   <a style="display:inline-block;" v-if="index==4">&nbsp;{{menuItem.title}} ({{ menuItems[index].data.length}})&nbsp;</a>
                   <a style="display:inline-block;" v-if="index!=4">&nbsp;{{menuItem.title}}&nbsp;</a>
-                </span>
               </router-link>
             </li>
           </ul>
@@ -53,13 +51,13 @@
     </nav>
     <!-- inactive right now -->
     <router-view></router-view>
+
     <!-- Page Content -->
     <div class="container">
       <div v-for="(menuItem, index) in menuItems" v-if="menuItem.selected">
         <br/>
         <h1 id="titleHeader" v-html="compiledMarkdown(menuItem.pageTitle)"></h1>
       </div>
-
 
       <!-- Page Heading -->
       <div id="home" class="row">
@@ -89,53 +87,33 @@
                   <div v-html="compiledMarkdown(item['fields']['Titel'])"></div>
                 </h4>
                 <div class="card-text" v-html="compiledMarkdown(item['fields']['Samenvatting'].substring(0,250)+'...')"></div>
+                <p>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/></p>
               </div>
-
-              <div class="card-body" style="white-space:nowrap;text-align: center;">
-                <span v-if="index!=4">
-                  <button class="pure-button btn btn-success" @click="selectItem(item)" onclick="this.disabled=true;">
+              
+              <div class="card-body buttons">
+                <span v-if="index!=4" class="span-btn-single">
+                  <button class="pure-button btn btn-success btn-f-single" @click="selectItem(item)" onclick="this.disabled=true;">
                     <i class="far fa-star"></i>
                     Add to favorites
                   </button>
                 </span>
-                <span v-if="index==4">
-                  <button class="pure-button btn btn-danger" @click="deleteItem(findex)">
+                <span v-if="index==4" class="span-btn-single">
+                  <button class="pure-button btn btn-danger btn-f-single" @click="deleteItem(findex)">
                     <i class="far fa-trash-alt"></i>
                     Remove
                   </button>
                 </span>
-                <button class="pure-button btn btn-info" @click="getItemDetails(item)">
+                <span class="span-btn-single">
+                <button class="pure-button btn btn-info btn-f-single" @click="getItemDetails(item)">
                   <i class="fas fa-info-circle"></i>
                   Show details
                 </button>
+              </span>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!--
-      <div id="favorites" class="row" style="display:none">
-        <div v-if="selectedItems.length == 0" class="col-lg-4 col-sm-6">
-          You haven't favorited any challenges yet...<br/><br/>
-        </div>
-
-        <div class="col-lg-4 col-sm-6 portfolio-item" v-for="(item, index) in selectedItems">
-          <div class="card h-100">
-            <a href="#"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt=""
-                v-if="item['fields']['Attachments']"></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <div v-html="compiledMarkdown(item['fields']['Titel'])"></div>
-              </h4>
-              <div class="card-text" v-html="compiledMarkdown(item['fields']['Samenvatting'].substring(0,250)+'...')"></div>
-            </div>
-            <button type="button" @click="deleteItem(index)">remove</button>
-            <button type="button" @click="getItemDetails(item)">details</button>
-          </div>
-        </div>
-
-      </div>
-    -->
 
       <div id="detail" class="row" style="display:none">
 
