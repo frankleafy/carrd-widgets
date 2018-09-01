@@ -14,7 +14,7 @@
   <script src="https://unpkg.com/marked@0.3.6"></script>
   <script src="https://unpkg.com/lodash@4.16.0"></script>
   <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
-  <script type="text/javascript" src="js/moment.js"></script>
+  <!--<script type="text/javascript" src="js/moment.js"></script>-->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
     crossorigin="anonymous">
@@ -41,8 +41,8 @@
           <ul class="navbar-nav ml-auto">
             <li v-for="(menuItem,index) in menuItems" v-if="menuItem.hidden==false">
               <router-link :to="menuItem.title" class="router-link">
-                  <a style="display:inline-block;" v-if="index==4">&nbsp;{{menuItem.title}} ({{ menuItems[index].data.length}})&nbsp;</a>
-                  <a style="display:inline-block;" v-if="index!=4">&nbsp;{{menuItem.title}}&nbsp;</a>
+                <a style="display:inline-block;" v-if="index==4">&nbsp;{{menuItem.title}} ({{ menuItems[index].data.length}})&nbsp;</a>
+                <a style="display:inline-block;" v-if="index!=4">&nbsp;{{menuItem.title}}&nbsp;</a>
               </router-link>
             </li>
           </ul>
@@ -54,11 +54,13 @@
 
     <!-- Page Content -->
     <div class="container">
-      <div v-for="(menuItem, index) in menuItems" v-if="menuItem.selected">
+      <div v-for="(menuItem, index) in menuItems" v-if="menuItem.selected && index!=5">
         <br/>
         <h1 id="titleHeader" v-html="compiledMarkdown(menuItem.pageTitle)"></h1>
+
       </div>
 
+      <br/>
       <!-- Page Heading -->
       <div id="home" class="row">
         <div class="col-lg-4 col-sm-6">
@@ -67,13 +69,14 @@
       </div>
       <!-- Status -->
       <div id="status" class="section content" style="display:none">
-        <p>
-          <img src="images/Infinity-4.2s-160px.gif">
-          <h1 class="my-4 loader">Loading challenges..</h1>
+
+        <img src="images/Infinity-4.2s-160px.gif">
+        <h1 class="my-4 loader">Loading challenges..</h1>
+        <br/>
       </div>
-      </p>
+
       <!-- content -->
-      <div v-for="(menuItem, index) in menuItems" v-if="index >0 && index <6">
+      <div v-for="(menuItem, index) in menuItems" v-if="index >0 && index <5">
         <div :id="menuItem.title" class="row" v-if="menuItem.selected">
           <div v-if="menuItems[4].data.length == 0 && index==4" class="col-lg-4 col-sm-6">
             You haven't favorited any challenges yet...<br/><br/>
@@ -87,9 +90,10 @@
                   <div v-html="compiledMarkdown(item['fields']['Titel'])"></div>
                 </h4>
                 <div class="card-text" v-html="compiledMarkdown(item['fields']['Samenvatting'].substring(0,250)+'...')"></div>
-                <p>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/></p>
+                <p>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>
+                </p>
               </div>
-              
+
               <div class="card-body buttons">
                 <span v-if="index!=4" class="span-btn-single">
                   <button class="pure-button btn btn-success btn-f-single" @click="selectItem(item)" onclick="this.disabled=true;">
@@ -103,59 +107,39 @@
                     Remove
                   </button>
                 </span>
-                <span class="span-btn-single">
-                <button class="pure-button btn btn-info btn-f-single" @click="getItemDetails(item)">
-                  <i class="fas fa-info-circle"></i>
-                  Show details
-                </button>
-              </span>
+                <router-link :to="'Details'" class="router-link">
+                  <span class="span-btn-single">
+                    <button class="pure-button btn btn-info btn-f-single" @click="getItemDetails(item)">
+                      <i class="fas fa-info-circle"></i>
+                      Show details
+                    </button>
+                  </span>
+                </router-link>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- detail view -->
-      <div id="detail" class="row" style="display:none" v-for="(item, index) in itemDetails">
-          
 
-          <div class="col-md-4 portfolio-item">
-            <img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']">
-          </div>
-          <div class="col-md-8 portfolio-item">              
-            
-              <div v-html="compiledMarkdown(item['fields']['Titel'])"></div>
-              <div v-html="compiledMarkdown(item['fields']['Omschrijving'])"></div>
-              <div v-html="compiledMarkdown(item['fields']['Website'])"></div>
-              <div v-html="formatDate(item['fields']['Inschrijving'])"></div>
-          </div>
-          <!--
-        <div class="col-lg-4 col-sm-6 portfolio-item" v-for="(item, index) in itemDetails">
-          <div class="card h-100">
-            <a href="#"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt=""
-                v-if="item['fields']['Attachments']"></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <div v-html="compiledMarkdown(item['fields']['Titel'])"></div>
-              </h4>
-              <p class="card-text">detail view</p>
-            </div>
-            <button type="button" @click="deleteItem(index)">remove</button>
-          </div>
+      <!-- detail view -->
+      <div id="detail" v-for="(item, index) in menuItems[5].data" class="row">
+
+        <div class="col-md-4 portfolio-item">
+          <img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']">
+          <div v-html="'<br/>Deadline inschrijving: '+formatDate(item['fields']['Inschrijving'])"></div>
         </div>
--->
+        <div class="col-md-8 portfolio-item">
+          <h1 v-html="compiledMarkdown(item['fields']['Titel'])"></h1>
+          <div v-html="compiledMarkdown(item['fields']['Omschrijving'])"></div>
+          <a target="_blank" :href="item['fields']['Website']">{{item['fields']['Website']}}</a>
+
+        </div>
       </div>
 
-         <!-- /.row -->
 
-      <div class="grid-container">
-          <div class="head">
-          </div>
-          <div class="action">
-          </div>
-          <div class="description">
-          </div>
-        </div>
-   
+
+      <!-- /.row -->
+
       <!-- Pagination 
       <div id="pagination" class="row"></div>
       <ul class="pagination justify-content-center">

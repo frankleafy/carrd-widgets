@@ -47,13 +47,19 @@ text-align: center;
 {
   color: white;
 }
+
+a.menu:link {color:grey;}
+a.menu:visited {color:grey;}
+
+
 a
 {
   font-size: 16px;
   color: grey;
+  display:inline-block;
 }
 a:hover { 
-  color: white;
+  color: rgba(185, 172, 172, 0.281);
 }
 
 .buttons

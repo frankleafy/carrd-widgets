@@ -1,7 +1,9 @@
  //init
+ var detailViewNumber = 5;
  var singleChallengeUrl = "https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Current%20Challenges&filter=";
  var app;
  var md = new Remarkable();
+
  //const Foo = { template: "a" };
  //const Bar = { template: "b" };
  //{ path: '/green', component: Foo },
@@ -10,7 +12,11 @@
 
        ]    
      const router = new VueRouter({
-         routes
+         routes,
+         scrollBehavior (to, from, savedPosition) {
+             alert('hi');
+            return { x: 0, y: 0 }
+          }
        })
 
 
@@ -44,6 +50,7 @@
         const router = new VueRouter({
             routes
           }) */
+         
         app = new Vue(
         {
             router,
@@ -102,9 +109,11 @@
                 },
                 getItemDetails: function(challenge)
                 {
-                    if(this.itemDetails.length > 0)this.itemDetails.pop();
-                    this.itemDetails.push(challenge);      
-                    setContentContainer(5);  
+                    
+                    if(this.menuItems[5].data.length > 0)this.menuItems[5].data.pop();
+                    this.menuItems[5].data.push(challenge);  
+                   // alert(this.menuItems[5].data.length); 
+
                 },
                 compiledMarkdown: function (source) 
                 {
@@ -112,8 +121,11 @@
                 },
                 formatDate: function (source)
                 {
-                   // today = new Date();  
-                    return source;//today.format('dd-m-yy'); ;
+                   // 2018-09-14
+                   var year = source.substring(0,4);
+                   var month = source.substring(5,7);
+                   var day = source.substring(8)  
+                    return day +"-"+ month+"-"+year;
                 }
                 
             },
@@ -124,7 +136,6 @@
         });
 
  
-
         
         router.afterEach((to, from, next) => {
         
@@ -132,10 +143,12 @@
             {
                 if(to.path.substring(1)== app.menuItems[i].title)
                 {
+                 //   alert('load '+i);
                     loadItems(i);
                     break;
                 } 
             }
+            document.getElementById('app').scrollIntoView();
             
           })
         
@@ -147,7 +160,7 @@ function setContentContainer(target)
     for (var i = 0; i < app.menuItems.length; i++) 
     { 
         var placeholder = document.getElementById(app.menuItems[i].container);
-        
+      
         if(i == target)
         {
             app.currentPage = app.menuItems[i].title;
