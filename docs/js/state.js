@@ -2,6 +2,16 @@
  var singleChallengeUrl = "https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Current%20Challenges&filter=";
  var app;
  var md = new Remarkable();
+ //const Foo = { template: "a" };
+ //const Bar = { template: "b" };
+ //{ path: '/green', component: Foo },
+ //{ path: '/social', component: Bar } 
+     const routes = [
+
+       ]    
+     const router = new VueRouter({
+         routes
+       })
 
  //Capture back/forward button clicks
  window.onhashchange = function() 
@@ -21,8 +31,19 @@
 }
 
  window.onload = function () {
+ /*    const Foo = { template: "<div>fs</div>" };
+    const Bar = { template: '<div>bar</div>' };
+    
+        const routes = [
+            { path: '/foo', component: Foo },
+            { path: '/bar', component: Bar }
+          ]    
+        const router = new VueRouter({
+            routes
+          }) */
         app = new Vue(
         {
+            router,
             el: '#app',
             data: {
                 input: '# hello',
@@ -84,7 +105,6 @@
         });
 
 
-       
         
     };
 

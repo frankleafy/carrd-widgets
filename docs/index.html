@@ -13,6 +13,8 @@
   <script type="text/javascript" src="https://unpkg.com/vue"></script>
   <script src="https://unpkg.com/marked@0.3.6"></script>
   <script src="https://unpkg.com/lodash@4.16.0"></script>
+  <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
+  
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
     crossorigin="anonymous">
@@ -38,24 +40,24 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
 
-            <li v-for="(menuItem,index) in menuItems" class="nav-item" v-if="menuItem.hidden==false">
+            <li v-for="(menuItem,index) in menuItems" class="nav-item" v-if="menuItem.hidden==false">  
+                    <router-link :to="menuItem.title">
+                      <span style="white-space:nowrap;" v-on:click="loadItems(index)">
+                      <a style="display:inline-block;" v-if="!menuItem.selected && index==4" class="nav-link"  >{{menuItem.title}} ({{ menuItems[index].data.length}})  </a>
+                      <a style="display:inline-block;" v-if="menuItem.selected && index==4" class="nav-link active" >{{menuItem.title}}  ({{menuItems[index].data.length}}) </a>
+                    
+                      <a style="display:inline-block;" v-if="!menuItem.selected && index!=4" class="nav-link"  >{{menuItem.title}}</a>
+                      <a style="display:inline-block;" v-if="menuItem.selected && index!=4" class="nav-link active" >{{menuItem.title}}</a>
 
-              <a class="nav-link active" :href="'#'+menuItem.title" @click="loadItems(index)" v-if="menuItem.selected">
-                {{ menuItem.title }} <span v-if="menuItem.title=='Favorites' && menuItems[4].data.length >0">({{ menuItems[4].data.length
-                  }})
-                </span>
-              </a>
-              <a class="nav-link" :href="'#'+menuItem.title" @click="loadItems(index)" v-if="menuItem.selected == false">
-                {{ menuItem.title }} <span v-if="menuItem.title=='Favorites' && menuItems[4].data.length >0">({{ menuItems[4].data.length
-                  }})
-                </span>
-              </a>
+                    
+                    </span>
+                    </router-link>
             </li>
           </ul>
         </div>
       </div>
     </nav>
-
+    <router-view ></router-view>
     <!-- Page Content -->
     <div class="container">
       <div v-for="(menuItem, index) in menuItems" v-if="menuItem.selected">
@@ -94,7 +96,7 @@
                 <div class="card-text" v-html="compiledMarkdown(item['fields']['Samenvatting'].substring(0,250)+'...')"></div>
               </div>
              
-                <div class="col-lg-4 col-sm-6 button-div">
+                <div class="card-body" style="white-space:nowrap;text-align: center;">
                   <span v-if="index!=4">
                     <button class="pure-button btn btn-success" @click="selectItem(item)" onclick="this.disabled=true;">
                       <i class="far fa-star"></i>
