@@ -109,6 +109,11 @@
                 compiledMarkdown: function (source) 
                 {
                   return marked(source, { sanitize: true })
+                },
+                formatDate: function (source)
+                {
+                   // today = new Date();  
+                    return source;//today.format('dd-m-yy'); ;
                 }
                 
             },

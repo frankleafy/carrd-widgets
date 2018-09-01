@@ -14,7 +14,7 @@
   <script src="https://unpkg.com/marked@0.3.6"></script>
   <script src="https://unpkg.com/lodash@4.16.0"></script>
   <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
-
+  <script type="text/javascript" src="js/moment.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
     crossorigin="anonymous">
@@ -115,8 +115,20 @@
         </div>
       </div>
       <!-- detail view -->
-      <div id="detail" class="row" style="display:none">
+      <div id="detail" class="row" style="display:none" v-for="(item, index) in itemDetails">
+          
 
+          <div class="col-md-4 portfolio-item">
+            <img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']">
+          </div>
+          <div class="col-md-8 portfolio-item">              
+            
+              <div v-html="compiledMarkdown(item['fields']['Titel'])"></div>
+              <div v-html="compiledMarkdown(item['fields']['Omschrijving'])"></div>
+              <div v-html="compiledMarkdown(item['fields']['Website'])"></div>
+              <div v-html="formatDate(item['fields']['Inschrijving'])"></div>
+          </div>
+          <!--
         <div class="col-lg-4 col-sm-6 portfolio-item" v-for="(item, index) in itemDetails">
           <div class="card h-100">
             <a href="#"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt=""
@@ -130,12 +142,20 @@
             <button type="button" @click="deleteItem(index)">remove</button>
           </div>
         </div>
-
+-->
       </div>
 
-      
-      <!-- /.row -->
+         <!-- /.row -->
 
+      <div class="grid-container">
+          <div class="head">
+          </div>
+          <div class="action">
+          </div>
+          <div class="description">
+          </div>
+        </div>
+   
       <!-- Pagination 
       <div id="pagination" class="row"></div>
       <ul class="pagination justify-content-center">
