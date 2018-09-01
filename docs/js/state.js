@@ -145,10 +145,11 @@
                 {
                  //   alert('load '+i);
                     loadItems(i);
+                    document.getElementById('app').scrollIntoView();
                     break;
                 } 
             }
-            document.getElementById('app').scrollIntoView();
+            
             
           })
         
