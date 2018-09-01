@@ -13,7 +13,9 @@
          routes
        })
 
+
  //Capture back/forward button clicks
+ /*
  window.onhashchange = function() 
  { 
     if(app.currentPage != "" && "#"+ app.currentPage != document.location.hash)
@@ -29,6 +31,7 @@
         }
     }
 }
+*/
 
  window.onload = function () {
  /*    const Foo = { template: "<div>fs</div>" };
@@ -65,6 +68,17 @@
             },
             mounted: function(){
                    if(localStorage.bookmarks) this.menuItems[4].data = JSON.parse(localStorage.bookmarks);
+                   var page = document.location.hash.substring(2);             
+                   
+                   for (var i = 0; i < this.menuItems.length; i++) 
+                   {                   
+                       if(this.menuItems[i].title == page)
+                       {
+                           app=this;
+                           loadItems(i);
+                           break;
+                       }
+                   } 
                 
             },
             methods: 
@@ -104,7 +118,21 @@
             }
         });
 
+ 
 
+        
+        router.afterEach((to, from, next) => {
+        
+            for (var i = 0; i < app.menuItems.length; i++) 
+            {
+                if(to.path.substring(1)== app.menuItems[i].title)
+                {
+                    loadItems(i);
+                    break;
+                } 
+            }
+            
+          })
         
     };
 
