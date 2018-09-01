@@ -43,3 +43,15 @@ body {
 text-align: center;
 
 }
+.router-link-active
+{
+  color: white;
+}
+a
+{
+  font-size: 16px;
+  color: grey;
+}
+a:hover { 
+  color: white;
+}

@@ -40,16 +40,11 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
 
-            <li v-for="(menuItem,index) in menuItems" class="nav-item" v-if="menuItem.hidden==false">  
-                    <router-link :to="menuItem.title">
+            <li v-for="(menuItem,index) in menuItems" v-if="menuItem.hidden==false">  
+                    <router-link :to="menuItem.title"  class="router-link">
                       <span style="white-space:nowrap;" v-on:click="loadItems(index)">
-                      <a style="display:inline-block;" v-if="!menuItem.selected && index==4" class="nav-link"  >{{menuItem.title}} ({{ menuItems[index].data.length}})  </a>
-                      <a style="display:inline-block;" v-if="menuItem.selected && index==4" class="nav-link active" >{{menuItem.title}}  ({{menuItems[index].data.length}}) </a>
-                    
-                      <a style="display:inline-block;" v-if="!menuItem.selected && index!=4" class="nav-link"  >{{menuItem.title}}</a>
-                      <a style="display:inline-block;" v-if="menuItem.selected && index!=4" class="nav-link active" >{{menuItem.title}}</a>
-
-                    
+                      <a style="display:inline-block;" v-if="index==4"  >&nbsp;{{menuItem.title}} ({{ menuItems[index].data.length}})&nbsp;</a>
+                      <a style="display:inline-block;" v-if="index!=4" >&nbsp;{{menuItem.title}}&nbsp;</a>
                     </span>
                     </router-link>
             </li>
