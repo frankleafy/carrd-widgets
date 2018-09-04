@@ -141,6 +141,7 @@
         </div>
         <div class="col-md-8 portfolio-item">
           <h1 v-html="compiledMarkdown(item['fields']['Titel'])"></h1>
+          <div v-html="compiledMarkdown(item['fields']['Samenvatting'])"></div>
           <div v-html="compiledMarkdown(item['fields']['Omschrijving'])"></div>
           <a target="_blank" :href="item['fields']['Website']">{{item['fields']['Website']}}</a>
 
@@ -186,7 +187,7 @@
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white">Blokhuisplein 40, 8911 LJ Leeuwarden</p>
+        <p class="m-0 text-center text-white">By Frank Kroondijk, Blokhuisplein 40, 8911 LJ Leeuwarden</p>
       </div>
       <!-- /.container -->
     </footer>
