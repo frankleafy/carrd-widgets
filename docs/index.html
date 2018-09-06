@@ -15,6 +15,9 @@
   <script src="https://unpkg.com/lodash@4.16.0"></script>
   <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
+	<link rel="stylesheet" href="css/basicLightbox.min.css">
+
   <!--<script type="text/javascript" src="js/moment.js"></script>-->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
@@ -58,15 +61,13 @@
       <div v-for="(menuItem, index) in menuItems" v-if="menuItem.selected && index!=5">
         <br/>
         <h1 id="titleHeader" v-html="compiledMarkdown(menuItem.pageTitle)"></h1>
-
-      </div>
-
       <br/>
+      </div>
       <!-- Page Heading -->
       <div id="home" class="row">
         <div class="col-lg-4 col-sm-6">
           Choose your challenge!
-          <img src="images/Challengesmallgrey.jpg" width="1200px;">
+          <img class="thumbnail" width="100" height="100" src="images/Challengesmallgrey.jpg" data-src="images/Challengesmallgrey.jpg">
         </div>
       </div>
       <!-- Status -->
@@ -195,7 +196,9 @@
     </footer>
   </div>
 
+
   <!-- Bootstrap core JavaScript -->
+  <script src="js/basicLightbox.min.js"></script>
   <script src="https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js"></script>
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
