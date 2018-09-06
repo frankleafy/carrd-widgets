@@ -172,19 +172,20 @@ function setContentContainer(target) {
 
 function saveApplication() {
  
-    return axios(baseUrl, {
-        method: 'POST',
-        mode: 'no-cors',
+    var self = app;
+
+    axios({
+        method: 'post',
+        url: baseUrl,
+        data: {},
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+            'Content-Type': 'text/plain',
         },
-        withCredentials: true,
-        credentials: 'same-origin',
-      }).then(response => {
-      })
-  
-    
+    }).then(function (response) {
+        console.log(response);
+    }).catch(function (error) {
+        console.log(error);
+    });
 }
 
 function loadItems(target) {
