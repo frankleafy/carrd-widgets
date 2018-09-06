@@ -1,6 +1,7 @@
 //init
 var detailViewNumber = 5;
-var singleChallengeUrl = "https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Current%20Challenges&filter=";
+var baseUrl = "https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec"
+var singleChallengeUrl = baseUrl + "?view=Current%20Challenges&filter=";
 var app;
 var md = new Remarkable();
 
@@ -19,24 +20,7 @@ const router = new VueRouter({
 })
 
 
-//Capture back/forward button clicks
-/*
-window.onhashchange = function() 
-{ 
-   if(app.currentPage != "" && "#"+ app.currentPage != document.location.hash)
-   {
-      var page = document.location.hash.substring(1);
-       for (var i = 0; i < app.menuItems.length; i++) 
-       { 
-           if(app.menuItems[i].title == page)
-           {
-               setContentContainer(i);
-               break;
-           }
-       }
-   }
-}
-*/
+var applyFor =  { "fields": { "Naam": "",  "Opleiding": "",   "Motivatie": "",   "Gekozen Challenge": [   ""  ],  "e-mail adres": "",    "Telefoon": "", "Titel": "", "Challenge Titel": "", "Code": ""  }};
 
 window.onload = function () {
     /*    const Foo = { template: "<div>fs</div>" };
@@ -57,6 +41,7 @@ window.onload = function () {
             router,
             el: '#app',
             data: {
+                errors: [],
                 input: '# hello',
                 currentPage: '',
                 menuItems: [
@@ -73,9 +58,10 @@ window.onload = function () {
                 ],
                 selectedItems: [],
                 itemDetails: [],
-                application =  { "fields": { "Naam": "",  "Opleiding": "",   "Motivatie": "",   "Gekozen Challenge": [   ""  ],  "e-mail adres": "",    "Telefoon": ""  }}
+                applyFor
             },
             mounted: function () {
+                
                 if (localStorage.bookmarks) this.menuItems[4].data = JSON.parse(localStorage.bookmarks);
                 var page = document.location.hash.substring(2);
 
@@ -87,7 +73,6 @@ window.onload = function () {
                     }
                 }
                 lightboxen();
-
             },
             methods:
             {
@@ -125,7 +110,21 @@ window.onload = function () {
                 castToString: function castToString(source) {
                     return "" + source;
 
+                },
+                submitApplication: function submitApplication()
+                {
+                   // this.errors.push("Name required.");
+                   saveApplication();
+                },
+                toApplicationForm: function toApplicationForm(code, titel)
+                {
+                    this.applyFor.fields.Code = code;
+                    this.applyFor.fields['Gekozen Challenge'][0]=code;
+                    this.applyFor.fields['Challenge titel'] = titel;
+                    alert(this.applyFor.fields.Code);
+                    router.push({ path: 'Apply' });
                 }
+
 
             },
             computed:
@@ -153,7 +152,7 @@ window.onload = function () {
 };
 
 function setContentContainer(target) {
-    //document.getElementById("titleHeader").innerText = app.menuItems[target].pageTitle;
+
     for (var i = 0; i < app.menuItems.length; i++) {
         var placeholder = document.getElementById(app.menuItems[i].container);
 
@@ -171,6 +170,30 @@ function setContentContainer(target) {
 
 }
 
+function saveApplication() {
+    // Init variables
+    var self = app;
+
+        axios.post
+            (
+                baseUrl,
+            {
+                body: this.applyFor,
+            }
+            ).then(function (response) {
+                document.getElementById("status").style.display = 'none';
+                self.menuItems[target].data = response.data.records;
+                self.menuItems[target].loaded = true;
+
+            }).catch
+            (
+            function (error) {
+                console.log(error)
+                document.getElementById("status").style.display = 'none';
+            }
+            )
+    
+}
 
 function loadItems(target) {
     // Init variables

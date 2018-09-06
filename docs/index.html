@@ -148,27 +148,44 @@
           <h2 v-if="item['fields']['O_Naam']" v-html="compiledMarkdown(castToString(item['fields']['O_Naam']))"></h2>
           <div v-if="item['fields']['O_Omschrijving']" v-html="compiledMarkdown(castToString(item['fields']['O_Omschrijving']))"></div>
           <a v-if="item['fields']['O_Website']" :href="castToString(item['fields']['O_Website'])" target="_blank">{{castToString(item['fields']['O_Website'])}}</a>
+          <p><input type="button" @click="toApplicationForm(item['fields']['Code'],item['fields']['Titel'])" value="Meld je aan" class="pure-button btn btn-info btn-f-single" ></p>
+   
 
         </div>
 
       </div>
 
       <!-- apply view -->
-      <div id="apply" v-for="(item, index) in menuItems[4].data" class="row">
+      <div id="apply" class="row">
 
           <div class="col-md-8 portfolio-item">
-              <h1 v-html="compiledMarkdown(item['fields']['Titel'])"></h1>
-              <form  method="post" action="https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec">
-                <input type="submit" value="Submit">
+              <p v-if="errors.length">
+                  <b>Please correct the following error(s):</b>
+                  <ul>
+                    <li v-for="error in errors">{{ error }}</li>
+                  </ul>
+                </p>
+              
+                <p><input  v-model="applyFor.fields['Challenge titel']" placeholder="Challenge titel"></p>
 
-              </form>
-    
+            <p><input  v-model="applyFor.fields['Gekozen Challenge'][0]" placeholder="Challenge code"></p> 
+            <p><input  v-model="applyFor.fields.Naam" placeholder="voor en achternaam"></p>
+           
+            <p> <textarea v-model="applyFor.fields.Motivatie" placeholder="waarom wil je graag aan deze challenge mee doen?"></textarea></p>
+            <p> <input v-model="applyFor.fields['e-mail adres']" placeholder="e-mailadres"></p>
+            <p> <input v-model="applyFor.fields.Telefoon" placeholder="Telefoonnummer"></p>
+            <p> <input v-model="applyFor.fields.Opleiding" placeholder="opleiding en jaar"></p>
+            <p><input type="button" @click="submitApplication" value="verstuur" class="pure-button btn btn-info btn-f-single" ></p>
+            
+           
+            <!-- 
+            { "fields": { "Naam": "Frank",  "Opleiding": "",   "Motivatie": "",   "Gekozen Challenge": [   ""  ],  "e-mail adres": "",    "Telefoon": "", "Challenge titel": ""  }};
+          -->
+
             </div>
     
             <div class="col-md-4 portfolio-item">
-              <img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']" alt="" v-if="item['fields']['Attachments']">
-              <div v-html="'<br/><center>Deadline inschrijving: '+formatDate(item['fields']['Inschrijving'])+ '</center><br/>'"></div>
-            </div>
+           </div>
 
       </div>
 
