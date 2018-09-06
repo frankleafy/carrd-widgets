@@ -72,7 +72,8 @@ window.onload = function () {
                     { title: "Contact", pageTitle: "Contact us", hidden: false, section: "contact", container: "contact", data: [], content: "", loaded: false, selected: false },
                 ],
                 selectedItems: [],
-                itemDetails: []
+                itemDetails: [],
+                application =  { "fields": { "Naam": "",  "Opleiding": "",   "Motivatie": "",   "Gekozen Challenge": [   ""  ],  "e-mail adres": "",    "Telefoon": ""  }}
             },
             mounted: function () {
                 if (localStorage.bookmarks) this.menuItems[4].data = JSON.parse(localStorage.bookmarks);
