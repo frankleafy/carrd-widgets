@@ -171,27 +171,19 @@ function setContentContainer(target) {
 }
 
 function saveApplication() {
-    // Init variables
-    var self = app;
-
-        axios.post
-            (
-                baseUrl,
-            {
-                body: this.applyFor,
-            }
-            ).then(function (response) {
-                document.getElementById("status").style.display = 'none';
-                self.menuItems[target].data = response.data.records;
-                self.menuItems[target].loaded = true;
-
-            }).catch
-            (
-            function (error) {
-                console.log(error)
-                document.getElementById("status").style.display = 'none';
-            }
-            )
+ 
+    return axios(baseUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+        credentials: 'same-origin',
+      }).then(response => {
+      })
+  
     
 }
 
