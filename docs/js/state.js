@@ -20,7 +20,7 @@ const router = new VueRouter({
 })
 
 
-var applyFor =  { "fields": { "Naam": "",  "Opleiding": "",   "Motivatie": "",   "Gekozen Challenge": [   ""  ],  "e-mail adres": "",    "Telefoon": "", "Titel": "", "Challenge Titel": "", "Code": ""  }};
+var applyFor =  { "fields": { "Naam": "",  "Opleiding": "",   "Motivatie": "",  "e-mail adres": "",    "Telefoon": "", "Challenge Titel": "", "Code": ""  }};
 
 window.onload = function () {
     /*    const Foo = { template: "<div>fs</div>" };
@@ -114,15 +114,23 @@ window.onload = function () {
                 submitApplication: function submitApplication()
                 {
                    // this.errors.push("Name required.");
+                   this.applyFor.fields.Code = code;
+                   this.applyFor.fields['Code'][0]=code;
+                   this.applyFor.fields['Challenge Titel'] = titel;
+                   alert(this.applyFor.fields.Code);
                    saveApplication();
+                   router.push({ path: 'Apply' });
+                  
                 },
                 toApplicationForm: function toApplicationForm(code, titel)
                 {
-                    this.applyFor.fields.Code = code;
-                    this.applyFor.fields['Gekozen Challenge'][0]=code;
-                    this.applyFor.fields['Challenge titel'] = titel;
-                    alert(this.applyFor.fields.Code);
-                    router.push({ path: 'Apply' });
+ 
+                },
+                postNow: function() {
+                 
+                  axios.post(baseUrl, this.applyFor, {headers: {
+                  'Content-type': 'application/x-www-form-urlencoded',
+                }}).then(r => console.log('r: ', JSON.stringify(r, null, 2)));
                 }
 
 
@@ -174,18 +182,23 @@ function saveApplication() {
  
     var self = app;
 
-    axios({
-        method: 'post',
-        url: baseUrl,
-        data: {},
-        headers: {
-            'Content-Type': 'text/plain',
-        },
-    }).then(function (response) {
-        console.log(response);
-    }).catch(function (error) {
-        console.log(error);
-    });
+    axios.get
+    (
+        baseUrl+'?post=1', self.applyFor, //google script, NOT Airtable
+    {
+ 
+    }
+    ).then(function (response) {
+        document.getElementById("status").style.display = 'none';
+       
+
+    }).catch
+    (
+    function (error) {
+        console.log(error)
+
+    }
+    )
 }
 
 function loadItems(target) {

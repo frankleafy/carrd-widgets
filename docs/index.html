@@ -159,23 +159,29 @@
       <div id="apply" class="row">
 
           <div class="col-md-8 portfolio-item">
-              <p v-if="errors.length">
+              
+            
+            
+            
+            
+            
+            <p v-if="errors.length">
                   <b>Please correct the following error(s):</b>
                   <ul>
                     <li v-for="error in errors">{{ error }}</li>
                   </ul>
                 </p>
               
-                <p><input  v-model="applyFor.fields['Challenge titel']" placeholder="Challenge titel"></p>
+                <p><input  v-model="applyFor.fields['Challenge Titel']" placeholder="Challenge titel"></p>
 
-            <p><input  v-model="applyFor.fields['Gekozen Challenge'][0]" placeholder="Challenge code"></p> 
+           <!-- <p><input  v-model="applyFor.fields['Gekozen Challenge'][0]" placeholder="Challenge code"></p> -->
             <p><input  v-model="applyFor.fields.Naam" placeholder="voor en achternaam"></p>
            
             <p> <textarea v-model="applyFor.fields.Motivatie" placeholder="waarom wil je graag aan deze challenge mee doen?"></textarea></p>
             <p> <input v-model="applyFor.fields['e-mail adres']" placeholder="e-mailadres"></p>
             <p> <input v-model="applyFor.fields.Telefoon" placeholder="Telefoonnummer"></p>
             <p> <input v-model="applyFor.fields.Opleiding" placeholder="opleiding en jaar"></p>
-            <p><input type="button" @click="submitApplication" value="verstuur" class="pure-button btn btn-info btn-f-single" ></p>
+            <p><input type="button" @click="postNow(2,'hoi')" value="verstuur" class="pure-button btn btn-info btn-f-single" ></p>
             
            
             <!-- 
