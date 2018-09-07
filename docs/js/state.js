@@ -114,17 +114,18 @@ window.onload = function () {
                 submitApplication: function submitApplication()
                 {
                    // this.errors.push("Name required.");
-                   this.applyFor.fields.Code = code;
-                   this.applyFor.fields['Code'][0]=code;
-                   this.applyFor.fields['Challenge Titel'] = titel;
+      
                    alert(this.applyFor.fields.Code);
                    saveApplication();
-                   router.push({ path: 'Apply' });
+                   
                   
                 },
                 toApplicationForm: function toApplicationForm(code, titel)
                 {
- 
+                    this.applyFor.fields.Code = code;
+                  //  this.applyFor.fields['Code'][0]=code;
+                    this.applyFor.fields['Challenge Titel'] = titel;
+                    router.push({ path: 'Apply' });
                 },
                 postNow: function() {
                  
