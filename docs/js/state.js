@@ -132,6 +132,7 @@ window.onload = function () {
                   axios.post(baseUrl, this.applyFor, {headers: {
                   'Content-type': 'application/x-www-form-urlencoded',
                 }}).then(r => console.log('r: ', JSON.stringify(r, null, 2)));
+                router.push({ path: 'Home' });
                 }
 
 
