@@ -51,7 +51,7 @@ window.onload = function () {
                     { title: "Commercial", pageTitle: "Commercial challenges", hidden: false, section: "commercial", container: "commercial", data: [], content: "https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Commercial%20Challenges", loaded: false, selected: false },
                     { title: "Favorites", pageTitle: "Your favorites", hidden: false, section: "favorites", container: "favorites", data: [], content: "", loaded: false, selected: false },
                     { title: "Details", pageTitle: "Details of this challenge", hidden: true, section: "detail", container: "detail", data: [], content: "", loaded: false, selected: false },
-                    { title: "Apply", pageTitle: "Apply for a challenge", hidden: false, section: "apply", container: "apply", data: [], content: "", loaded: false, selected: false },
+                    { title: "Apply", pageTitle: "Apply for a challenge", hidden: true, section: "apply", container: "apply", data: [], content: "", loaded: false, selected: false },
                     { title: "Events", pageTitle: "Oncoming events", hidden: false, section: "events", container: "events", data: [], content: "", loaded: false, selected: false },
                     { title: "About", pageTitle: "About MBO Challenges", hidden: false, section: "about", container: "about", data: [], content: "", loaded: false, selected: false },
                     { title: "Contact", pageTitle: "Contact us", hidden: false, section: "contact", container: "contact", data: [], content: "", loaded: false, selected: false },
