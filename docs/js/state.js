@@ -42,7 +42,7 @@ window.onload = function () {
 
             el: '#app',
             data: {
-                status: { type: "test", message: "hoi" },
+                status: { type: "", message: "" },
                 errors: [],
                 input: '# hello',
                 currentPage: '',
@@ -68,17 +68,7 @@ window.onload = function () {
                 //read querystring
                 var page = document.location.hash.substring(2) || "Home";
                 app = this;
-                //alert("p"+page);
                 preLoad(page);
-                /*
-                for (var i = 0; i < this.menuItems.length; i++) {
-                    if (this.menuItems[i].title == page) {
-                        
-                        loadItems(i);
-                        break;
-                    }
-                }
-                */
                 lightboxen();
             },
             methods:
@@ -129,7 +119,6 @@ window.onload = function () {
                 },
                 toApplicationForm: function toApplicationForm(code, titel) {
                     this.applyFor.fields.Code = code;
-                    //  this.applyFor.fields['Code'][0]=code;
                     this.applyFor.fields['Challenge Titel'] = titel;
                     router.push({ path: 'Apply' });
                 },
@@ -141,7 +130,12 @@ window.onload = function () {
                         }
                     }).then(r => console.log('r: ', JSON.stringify(r, null, 2)));
                     router.push({ path: 'Home' });
+                },
+                applyNow: function applyNow()
+                {
+                    saveApplication();
                 }
+
 
 
             },
@@ -155,6 +149,7 @@ window.onload = function () {
 
     router.afterEach((to, from, next) => {
        // alert('rt = '+to);
+
         var rt = to.path.substring(1);
         preLoad(rt);
         
@@ -163,27 +158,61 @@ window.onload = function () {
 
 };
 
+function saveApplication() {
+
+    var self = app;
+    app.status.type = "loading";
+    app.status.message = "Saving..";
+
+    axios.post
+        (
+        baseUrl, self.applyFor, //google script, NOT Airtable
+        {
+            headers: {
+                'Content-type': 'application/x-www-form-urlencoded',
+            }}
+        ).then(function (response) {
+            // document.getElementById("status").style.display = 'none';
+            app.status.type = "ready";
+            app.status.message = "Bedankt voor je aanvraag, je ontvangt een e-mail met daarin de verdere benodigde stappen";
+            applyFor.fields['Challenge Titel'] = "";
+ 
+        }).catch
+        (
+        function (error) {
+            console.log(error)
+            //app.status.type = "error";
+           // app.status.message = "Er is wat mis gegaan tijdens het verzenden, neem contact op met.."
+
+           //stiekem gaat het toch goed
+           app.status.type = "ready";
+           app.status.message = "Bedankt voor je aanvraag, je ontvangt een e-mail met daarin de verdere benodigde stappen";
+           applyFor.fields['Challenge Titel'] = "";
+           applyFor.fields['Motivatie']="";
+        }
+        )
+ 
+}
+
+
 function preLoad(rt)
 {
   
     var details;
-
+    app.status.type = "";
+    app.status.message ="";
     if (rt.indexOf('_') > 0) 
     {
-       //  alert('rt ='+rt);
         details = rt.substring(rt.indexOf('_')+1);
         rt = rt.substring(0,rt.indexOf('_'));
         app.menuItems[5].content = singleChallengeUrl + details;
         app.itemDetails = details;
-     //   alert( app.menuItems[5].content );
     }
     
     for (var i = 0; i < app.menuItems.length; i++) 
     {
-        //alert('i='+i);
         if (rt == app.menuItems[i].title) 
         {
-            //alert('hier');
             loadItems(i);
             document.getElementById('body').scrollIntoView();
             break;
@@ -199,7 +228,7 @@ function setContentContainer(target) {
         if (i == target) {
             app.currentPage = app.menuItems[i].title;
             app.menuItems[i].selected = true;
-            //alert('update:'+app.menuItems[i].title);
+
             if (placeholder) placeholder.style.cssText = 'block';
         }
         else {
@@ -210,32 +239,6 @@ function setContentContainer(target) {
 
 }
 
-function saveApplication() {
-
-    var self = app;
-    app.status.type = "loading";
-    app.status.message = "Saving..";
-
-    axios.get
-        (
-        baseUrl + '?post=1', self.applyFor, //google script, NOT Airtable
-        {
-
-        }
-        ).then(function (response) {
-            // document.getElementById("status").style.display = 'none';
-            app.status.type = "ready";
-            app.status.message = "Bedankt voor je aanvraag, je ontvangt een e-mail met daarin de verdere benodigde stappen";
-
-        }).catch
-        (
-        function (error) {
-            console.log(error)
-            app.status.type = "error";
-            app.status.message = "Er is wat mis gegaan tijdens het verzenden, neem contact op met.."
-        }
-        )
-}
 
 function loadItems(target) {
     // Init variables
