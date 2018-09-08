@@ -116,7 +116,7 @@
                     Remove
                   </button>
                 </span>
-                <router-link :to="'Details_'+item['fields']['Code']" class="router-link">
+                <router-link :to="'Details_'+item['fields']['Code']" class="router-link btn-f-single" >
                   <span class="span-btn-single">
                     <button class="pure-button btn btn-info btn-f-single" @click="getItemDetails(item)">
                       <i class="fas fa-info-circle"></i>
@@ -139,7 +139,9 @@
           <div v-html="compiledMarkdown(item['fields']['Samenvatting'])"></div>
           <div v-html="compiledMarkdown(item['fields']['Omschrijving'])"></div>
           <a target="_blank" :href="item['fields']['Website']">{{item['fields']['Website']}}</a>
-
+          <br/>&nbsp;<br/>
+          <p style="text-align: center"><input type="button" @click="toApplicationForm(item['fields']['Code'],item['fields']['Titel'])" value="Meld je aan"
+            class="pure-button btn btn-info btn-f-single btn-details"></p>
         </div>
 
         <div class="col-md-4 portfolio-item" style="text-align: center">
@@ -155,7 +157,7 @@
           <a v-if="item['fields']['O_Website']" :href="castToString(item['fields']['O_Website'])" target="_blank">{{castToString(item['fields']['O_Website'])}}</a>
           <br />&nbsp;<br />
           <p><input type="button" @click="toApplicationForm(item['fields']['Code'],item['fields']['Titel'])" value="Meld je aan"
-              class="pure-button btn btn-info btn-f-single"></p>
+              class="pure-button btn btn-info btn-f-single btn-details"></p>
 
 
         </div>
@@ -169,8 +171,8 @@
 
 
           <p v-if="errors.length">
-            <b>Please correct the following error(s):</b>
-            <ul>
+            <b>Pas de fouten in het formulier aan:</b>
+            <ul style="color:red">
               <li v-for="error in errors">{{ error }}</li>
             </ul>
           </p>

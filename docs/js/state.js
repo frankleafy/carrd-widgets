@@ -122,18 +122,23 @@ window.onload = function () {
                     this.applyFor.fields['Challenge Titel'] = titel;
                     router.push({ path: 'Apply' });
                 },
-                postNow: function () {
-                    this.errors.push("Name required.");
-                    axios.post(baseUrl, this.applyFor, {
-                        headers: {
-                            'Content-type': 'application/x-www-form-urlencoded',
-                        }
-                    }).then(r => console.log('r: ', JSON.stringify(r, null, 2)));
-                    router.push({ path: 'Home' });
-                },
                 applyNow: function applyNow()
                 {
+                    this.errors = [];
+                    if(applyFor.fields['Voornaam'] == "") this.errors.push('Voornaam is een verplicht veld');
+                    if(applyFor.fields['Achternaam'] == "") this.errors.push('Achternaam is een verplicht veld');
+                    if(applyFor.fields['e-mail adres'] == "") this.errors.push('E-mailadres is een verplicht veld');
+                    if(applyFor.fields['Opleiding'] == "") this.errors.push('Opleiding en jaar is een verplicht veld');
+                    if(applyFor.fields['Motivatie'] == "") this.errors.push('Motivatie is een verplicht veld');
+                             
+                    if(this.errors.length == 0)
+                    {
                     saveApplication();
+                    }
+                    else
+                    {
+                        document.getElementById('body').scrollIntoView();
+                    }
                 }
 
 

@@ -71,9 +71,18 @@ a:hover {
   width:100%;
 }
 
+.btn-details
+{
+  min-width: 80%;
+}
+
+.btn-f-single
+{
+  
+}
 .span-btn-single
 {
-
+ 
   margin-bottom: 1px;
 }
 
