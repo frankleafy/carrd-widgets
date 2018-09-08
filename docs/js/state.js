@@ -42,7 +42,7 @@ window.onload = function () {
 
             el: '#app',
             data: {
-                status: { message: "", type: "" },
+                status: { type: "test", message: "hoi" },
                 errors: [],
                 input: '# hello',
                 currentPage: '',
@@ -58,8 +58,7 @@ window.onload = function () {
                     { title: "About", pageTitle: "About MBO Challenges", hidden: false, section: "about", container: "about", data: [], content: "", loaded: false, selected: false },
                     { title: "Contact", pageTitle: "Contact us", hidden: false, section: "contact", container: "contact", data: [], content: "", loaded: false, selected: false },
                 ],
-                selectedItems: [],
-                itemDetails: [],
+                itemDetails: -1,
                 applyFor
             },
             mounted: function () {
@@ -88,7 +87,7 @@ window.onload = function () {
                     loadItems(target)
                 },
                 selectItem: function (challenge) {
-                    //this.selectedItems.push(challenge);
+                   
                     this.menuItems[4].data.push(challenge);
                     localStorage.bookmarks = JSON.stringify(this.menuItems[4].data);
                 }
@@ -98,14 +97,20 @@ window.onload = function () {
                     localStorage.bookmarks = JSON.stringify(this.menuItems[4].data);
 
                 },
-                getItemDetails: function (challengeCode) {
+                getItemDetails: function (challenge) {
 
-                    //  if (this.menuItems[5].data.length > 0) this.menuItems[5].data.pop();
-                    //  this.menuItems[5].data.push(challenge);
-                    // alert(this.menuItems[5].data.length); 
-                    //alert(challengeCode);
-                    this.menuItems[5].data = [];
-                    this.menuItems[5].content = singleChallengeUrl + challengeCode;
+                    
+                    if (this.menuItems[5].data.length > 0) 
+                    {
+                      
+                        if(challenge.fields.Code != this.menuItems[5].data[0].fields.Code)
+                        {
+                            this.menuItems[5].data.pop();                      
+                            this.menuItems[5].data.push(challenge);
+                        }
+                    }
+
+                    this.menuItems[5].content = singleChallengeUrl + challenge.fields.Code;
 
                 },
                 compiledMarkdown: function (source) {
@@ -122,14 +127,6 @@ window.onload = function () {
                     return "" + source;
 
                 },
-                submitApplication: function submitApplication() {
-                    // this.errors.push("Name required.");
-
-                    alert(this.applyFor.fields.Code);
-                    saveApplication();
-
-
-                },
                 toApplicationForm: function toApplicationForm(code, titel) {
                     this.applyFor.fields.Code = code;
                     //  this.applyFor.fields['Code'][0]=code;
@@ -137,7 +134,7 @@ window.onload = function () {
                     router.push({ path: 'Apply' });
                 },
                 postNow: function () {
-
+                    this.errors.push("Name required.");
                     axios.post(baseUrl, this.applyFor, {
                         headers: {
                             'Content-type': 'application/x-www-form-urlencoded',
@@ -177,6 +174,7 @@ function preLoad(rt)
         details = rt.substring(rt.indexOf('_')+1);
         rt = rt.substring(0,rt.indexOf('_'));
         app.menuItems[5].content = singleChallengeUrl + details;
+        app.itemDetails = details;
      //   alert( app.menuItems[5].content );
     }
     
@@ -245,7 +243,7 @@ function loadItems(target) {
 
     setContentContainer(target)
 
-    if (self.menuItems[target].content != "" && (!self.menuItems[target].loaded || target == 5)) {
+    if (self.menuItems[target].content != "" && !self.menuItems[target].loaded ) {
         // document.getElementById("status").style.display = 'block';
         self.status.type = "loading";
         self.status.message = "Loading..."
@@ -267,8 +265,8 @@ function loadItems(target) {
             function (error) {
                 console.log(error)
                 //document.getElementById("status").style.display = 'none';
-                app.status.type = "";
-                app.status.message = ""
+                app.status.type = "error";
+                app.status.message = "Er is wat fout gegaan tijdens het laden..."
             }
             )
     }

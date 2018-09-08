@@ -63,6 +63,7 @@
         <h1 id="titleHeader" v-html="compiledMarkdown(menuItem.pageTitle)"></h1>
         <br/>
       </div>
+
       <!-- Page Heading -->
       <div id="home" class="row">
         <div class="col-lg-4 col-sm-6">
@@ -70,8 +71,9 @@
           <img class="thumbnail" width="100" height="100" src="images/MBOChallengesInfographic.png" data-src="images/MBOChallengesInfographic.png">
         </div>
       </div>
+
       <!-- Status -->
-      <div id="status"  v-if="status.message!=''" class="row">
+      <div id="status"  v-if="status.type!=''" class="row" style="display:block;">
         <img v-if="status.type=='loading'" src="images/Infinity-4.2s-160px.gif">
         <h1 class="my-4 loader">{{status.message}}</h1>
         <br/>
@@ -86,7 +88,7 @@
           <div class="col-lg-4 col-sm-6 portfolio-item" v-for="(item, findex) in menuItems[index].data">
 
             <div class="card h-100">
-              <router-link :to="'Details'" class="router-link">
+              <router-link :to="'Details_'+item['fields']['Code']" class="router-link">
                 <a href="#" @click="getItemDetails(item)"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']"
                     alt="" v-if="item['fields']['Attachments']"></a>
               </router-link>
@@ -115,7 +117,7 @@
                 </span>
                 <router-link :to="'Details_'+item['fields']['Code']" class="router-link">
                   <span class="span-btn-single">
-                    <button class="pure-button btn btn-info btn-f-single" @click="getItemDetails(item['fields']['Code'])">
+                    <button class="pure-button btn btn-info btn-f-single" @click="getItemDetails(item)">
                       <i class="fas fa-info-circle"></i>
                       Show details
                     </button>
@@ -179,8 +181,8 @@
            <div class="row"><div class="col-25">Telefoonnummer</div><div class="col-75"><input type="text" v-model="applyFor.fields.Telefoon" placeholder="telefoonnummer"></div></div>
            <div class="row"><div class="col-25">Huidige opleiding en jaar</div><div class="col-75"><input type="text" v-model="applyFor.fields.Opleiding" placeholder="opleiding en jaar"></div></div>
            <div class="row"><div class="col-25">Motivatie*:</div><div class="col-75"><textarea type="text" v-model="applyFor.fields.Motivatie" placeholder="waarom wil je graag aan deze challenge mee doen?" style="height:200px"></textarea></div></div>
-            &nbsp;<br/><p><input type="button" @click="postNow" value="verstuur" class="pure-button btn btn-info btn-f-single" ></p>
-            
+            <div class="row"><div class="col-25">&nbsp;</div><div class="col-75"><input type="button" @click="postNow" value="verstuur" class="pure-button btn btn-info btn-f-single" ></div></div>
+   
            
 
             </div>
