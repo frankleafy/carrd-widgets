@@ -20,7 +20,7 @@ const router = new VueRouter({
 })
 
 
-var applyFor =  { "fields": { "Voornaam": "", "Tussenvoegsel": "", "Achternaam": "",  "Opleiding": "",   "Motivatie": "",  "e-mail adres": "",    "Telefoon": "", "Challenge Titel": "", "Code": ""  }};
+var applyFor = { "fields": { "Voornaam": "", "Tussenvoegsel": "", "Achternaam": "", "Opleiding": "", "Motivatie": "", "e-mail adres": "", "Telefoon": "", "Challenge Titel": "", "Code": "" } };
 
 window.onload = function () {
     /*    const Foo = { template: "<div>fs</div>" };
@@ -39,18 +39,20 @@ window.onload = function () {
     app = new Vue(
         {
             router,
+
             el: '#app',
             data: {
+                status: { message: "", type: "" },
                 errors: [],
                 input: '# hello',
                 currentPage: '',
                 menuItems: [
                     { title: "Home", pageTitle: "__MBO__*Challenges*, purposeful learning", hidden: false, section: "home", container: "home", data: [], content: "", loaded: false, selected: true },
-                    { title: "Green", pageTitle: "Sustainability challenges", hidden: false, section: "green", container: "green", data: [], content: "https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Green%20Challenges", loaded: false, selected: false },
-                    { title: "Social", pageTitle: "Social challenges", hidden: false, section: "social", container: "social", data: [], content: "https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Social%20Challenges", loaded: false, selected: false },
-                    { title: "Commercial", pageTitle: "Commercial challenges", hidden: false, section: "commercial", container: "commercial", data: [], content: "https://script.google.com/macros/s/AKfycbx4cVgWqXOtoRqvX70nqhlP0N6dslt2uUoPTymyZwsB-cE81-H8/exec?view=Commercial%20Challenges", loaded: false, selected: false },
+                    { title: "Green", pageTitle: "Sustainability challenges", hidden: false, section: "green", container: "green", data: [], content: baseUrl + "?view=Green%20Challenges", loaded: false, selected: false },
+                    { title: "Social", pageTitle: "Social challenges", hidden: false, section: "social", container: "social", data: [], content: baseUrl + "?view=Social%20Challenges", loaded: false, selected: false },
+                    { title: "Commercial", pageTitle: "Commercial challenges", hidden: false, section: "commercial", container: "commercial", data: [], content: baseUrl + "?view=Commercial%20Challenges", loaded: false, selected: false },
                     { title: "Favorites", pageTitle: "Your favorites", hidden: false, section: "favorites", container: "favorites", data: [], content: "", loaded: false, selected: false },
-                    { title: "Details", pageTitle: "Details of this challenge", hidden: true, section: "detail", container: "detail", data: [], content: "", loaded: false, selected: false },
+                    { title: "Details", pageTitle: "Details of this challenge", hidden: true, section: "detail", container: "detail", data: [], content: singleChallengeUrl, loaded: false, selected: false },
                     { title: "Apply", pageTitle: "Apply for a challenge", hidden: true, section: "apply", container: "apply", data: [], content: "", loaded: false, selected: false },
                     { title: "Events", pageTitle: "Oncoming events", hidden: false, section: "events", container: "events", data: [], content: "", loaded: false, selected: false },
                     { title: "About", pageTitle: "About MBO Challenges", hidden: false, section: "about", container: "about", data: [], content: "", loaded: false, selected: false },
@@ -61,17 +63,23 @@ window.onload = function () {
                 applyFor
             },
             mounted: function () {
-                
-                if (localStorage.bookmarks) this.menuItems[4].data = JSON.parse(localStorage.bookmarks);
-                var page = document.location.hash.substring(2);
 
+                if (localStorage.bookmarks) this.menuItems[4].data = JSON.parse(localStorage.bookmarks);
+
+                //read querystring
+                var page = document.location.hash.substring(2) || "Home";
+                app = this;
+                //alert("p"+page);
+                preLoad(page);
+                /*
                 for (var i = 0; i < this.menuItems.length; i++) {
                     if (this.menuItems[i].title == page) {
-                        app = this;
+                        
                         loadItems(i);
                         break;
                     }
                 }
+                */
                 lightboxen();
             },
             methods:
@@ -90,11 +98,14 @@ window.onload = function () {
                     localStorage.bookmarks = JSON.stringify(this.menuItems[4].data);
 
                 },
-                getItemDetails: function (challenge) {
+                getItemDetails: function (challengeCode) {
 
-                    if (this.menuItems[5].data.length > 0) this.menuItems[5].data.pop();
-                    this.menuItems[5].data.push(challenge);
+                    //  if (this.menuItems[5].data.length > 0) this.menuItems[5].data.pop();
+                    //  this.menuItems[5].data.push(challenge);
                     // alert(this.menuItems[5].data.length); 
+                    //alert(challengeCode);
+                    this.menuItems[5].data = [];
+                    this.menuItems[5].content = singleChallengeUrl + challengeCode;
 
                 },
                 compiledMarkdown: function (source) {
@@ -111,28 +122,28 @@ window.onload = function () {
                     return "" + source;
 
                 },
-                submitApplication: function submitApplication()
-                {
-                   // this.errors.push("Name required.");
-      
-                   alert(this.applyFor.fields.Code);
-                   saveApplication();
-                   
-                  
+                submitApplication: function submitApplication() {
+                    // this.errors.push("Name required.");
+
+                    alert(this.applyFor.fields.Code);
+                    saveApplication();
+
+
                 },
-                toApplicationForm: function toApplicationForm(code, titel)
-                {
+                toApplicationForm: function toApplicationForm(code, titel) {
                     this.applyFor.fields.Code = code;
-                  //  this.applyFor.fields['Code'][0]=code;
+                    //  this.applyFor.fields['Code'][0]=code;
                     this.applyFor.fields['Challenge Titel'] = titel;
                     router.push({ path: 'Apply' });
                 },
-                postNow: function() {
-                 
-                  axios.post(baseUrl, this.applyFor, {headers: {
-                  'Content-type': 'application/x-www-form-urlencoded',
-                }}).then(r => console.log('r: ', JSON.stringify(r, null, 2)));
-                router.push({ path: 'Home' });
+                postNow: function () {
+
+                    axios.post(baseUrl, this.applyFor, {
+                        headers: {
+                            'Content-type': 'application/x-www-form-urlencoded',
+                        }
+                    }).then(r => console.log('r: ', JSON.stringify(r, null, 2)));
+                    router.push({ path: 'Home' });
                 }
 
 
@@ -146,20 +157,41 @@ window.onload = function () {
 
 
     router.afterEach((to, from, next) => {
-
-        for (var i = 0; i < app.menuItems.length; i++) {
-            if (to.path.substring(1) == app.menuItems[i].title) {
-                //   alert('load '+i);
-                loadItems(i);
-                document.getElementById('body').scrollIntoView();
-                break;
-            }
-        }
-
+       // alert('rt = '+to);
+        var rt = to.path.substring(1);
+        preLoad(rt);
+        
 
     })
 
 };
+
+function preLoad(rt)
+{
+  
+    var details;
+
+    if (rt.indexOf('_') > 0) 
+    {
+       //  alert('rt ='+rt);
+        details = rt.substring(rt.indexOf('_')+1);
+        rt = rt.substring(0,rt.indexOf('_'));
+        app.menuItems[5].content = singleChallengeUrl + details;
+     //   alert( app.menuItems[5].content );
+    }
+    
+    for (var i = 0; i < app.menuItems.length; i++) 
+    {
+        //alert('i='+i);
+        if (rt == app.menuItems[i].title) 
+        {
+            //alert('hier');
+            loadItems(i);
+            document.getElementById('body').scrollIntoView();
+            break;
+        }
+    }
+}
 
 function setContentContainer(target) {
 
@@ -181,26 +213,30 @@ function setContentContainer(target) {
 }
 
 function saveApplication() {
- 
+
     var self = app;
+    app.status.type = "loading";
+    app.status.message = "Saving..";
 
     axios.get
-    (
-        baseUrl+'?post=1', self.applyFor, //google script, NOT Airtable
-    {
- 
-    }
-    ).then(function (response) {
-        document.getElementById("status").style.display = 'none';
-       
+        (
+        baseUrl + '?post=1', self.applyFor, //google script, NOT Airtable
+        {
 
-    }).catch
-    (
-    function (error) {
-        console.log(error)
+        }
+        ).then(function (response) {
+            // document.getElementById("status").style.display = 'none';
+            app.status.type = "ready";
+            app.status.message = "Bedankt voor je aanvraag, je ontvangt een e-mail met daarin de verdere benodigde stappen";
 
-    }
-    )
+        }).catch
+        (
+        function (error) {
+            console.log(error)
+            app.status.type = "error";
+            app.status.message = "Er is wat mis gegaan tijdens het verzenden, neem contact op met.."
+        }
+        )
 }
 
 function loadItems(target) {
@@ -209,15 +245,20 @@ function loadItems(target) {
 
     setContentContainer(target)
 
-    if (self.menuItems[target].content != "" && !self.menuItems[target].loaded) {
-        document.getElementById("status").style.display = 'block';
+    if (self.menuItems[target].content != "" && (!self.menuItems[target].loaded || target == 5)) {
+        // document.getElementById("status").style.display = 'block';
+        self.status.type = "loading";
+        self.status.message = "Loading..."
         axios.get
             (
             self.menuItems[target].content, //google script, NOT Airtable
             {
             }
             ).then(function (response) {
-                document.getElementById("status").style.display = 'none';
+                //document.getElementById("status").style.display = 'none';
+                app.status.type = "";
+                app.status.message = ""
+
                 self.menuItems[target].data = response.data.records;
                 self.menuItems[target].loaded = true;
 
@@ -225,7 +266,9 @@ function loadItems(target) {
             (
             function (error) {
                 console.log(error)
-                document.getElementById("status").style.display = 'none';
+                //document.getElementById("status").style.display = 'none';
+                app.status.type = "";
+                app.status.message = ""
             }
             )
     }
@@ -233,11 +276,10 @@ function loadItems(target) {
 
 
 
-function lightboxen()
-{
-    document.querySelectorAll('.thumbnail').forEach(function(elem) {
+function lightboxen() {
+    document.querySelectorAll('.thumbnail').forEach(function (elem) {
 
-        elem.onclick = function(e) {
+        elem.onclick = function (e) {
 
             const src = elem.getAttribute('data-src')
             const html = '<img src="' + src + '">'

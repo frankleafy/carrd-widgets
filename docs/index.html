@@ -71,10 +71,9 @@
         </div>
       </div>
       <!-- Status -->
-      <div id="status" class="section content" style="display:none">
-
-        <img src="images/Infinity-4.2s-160px.gif">
-        <h1 class="my-4 loader">Loading challenges..</h1>
+      <div id="status"  v-if="status.message!=''" class="row">
+        <img v-if="status.type=='loading'" src="images/Infinity-4.2s-160px.gif">
+        <h1 class="my-4 loader">{{status.message}}</h1>
         <br/>
       </div>
 
@@ -114,9 +113,9 @@
                     Remove
                   </button>
                 </span>
-                <router-link :to="'Details'" class="router-link">
+                <router-link :to="'Details_'+item['fields']['Code']" class="router-link">
                   <span class="span-btn-single">
-                    <button class="pure-button btn btn-info btn-f-single" @click="getItemDetails(item)">
+                    <button class="pure-button btn btn-info btn-f-single" @click="getItemDetails(item['fields']['Code'])">
                       <i class="fas fa-info-circle"></i>
                       Show details
                     </button>
@@ -174,17 +173,15 @@
                 <div class="row"><div class="col-25">Challenge:</div><div class="col-75"><h4 v-html="compiledMarkdown(applyFor.fields['Challenge Titel'])"></h4></div></div>
            <!-- <p><input  v-model="applyFor.fields['Gekozen Challenge'][0]" placeholder="Challenge code"></p> -->
            <div class="row"><div class="col-25">Voornaam*:</div><div class="col-75"><input type="text"  v-model="applyFor.fields.Voornaam" placeholder="voornaam"></div></div>
-           <div class="row"><div class="col-25">Achternaam*:</div><div class="col-75"><input type="text"  v-model="applyFor.fields.Voornaam" placeholder="voornaam"></div></div>
+           <div class="row"><div class="col-25">Tussenvoegsel:</div><div class="col-75"><input type="text"  v-model="applyFor.fields.Tussenvoegsel" placeholder="tussenvoegsel"></div></div>
+           <div class="row"><div class="col-25">Achternaam*:</div><div class="col-75"><input type="text"  v-model="applyFor.fields.Achternaam" placeholder="voornaam"></div></div>
            <div class="row"><div class="col-25">E-mailadres*</div><div class="col-75"><input type="text" v-model="applyFor.fields['e-mail adres']" placeholder="e-mailadres"></div></div>
-           <div class="row"><div class="col-25">Telefoonnummer</div><div class="col-75"><input type="text" v-model="applyFor.fields.Telefoon" placeholder="Telefoonnummer"></div></div>
+           <div class="row"><div class="col-25">Telefoonnummer</div><div class="col-75"><input type="text" v-model="applyFor.fields.Telefoon" placeholder="telefoonnummer"></div></div>
            <div class="row"><div class="col-25">Huidige opleiding en jaar</div><div class="col-75"><input type="text" v-model="applyFor.fields.Opleiding" placeholder="opleiding en jaar"></div></div>
            <div class="row"><div class="col-25">Motivatie*:</div><div class="col-75"><textarea type="text" v-model="applyFor.fields.Motivatie" placeholder="waarom wil je graag aan deze challenge mee doen?" style="height:200px"></textarea></div></div>
             &nbsp;<br/><p><input type="button" @click="postNow" value="verstuur" class="pure-button btn btn-info btn-f-single" ></p>
             
            
-            <!-- 
-            { "fields": { "Naam": "Frank",  "Opleiding": "",   "Motivatie": "",   "Gekozen Challenge": [   ""  ],  "e-mail adres": "",    "Telefoon": "", "Challenge titel": ""  }};
-          -->
 
             </div>
     
