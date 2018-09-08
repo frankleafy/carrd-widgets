@@ -20,7 +20,7 @@ const router = new VueRouter({
 })
 
 
-var applyFor =  { "fields": { "Naam": "",  "Opleiding": "",   "Motivatie": "",  "e-mail adres": "",    "Telefoon": "", "Challenge Titel": "", "Code": ""  }};
+var applyFor =  { "fields": { "Voornaam": "", "Tussenvoegsel": "", "Achternaam": "",  "Opleiding": "",   "Motivatie": "",  "e-mail adres": "",    "Telefoon": "", "Challenge Titel": "", "Code": ""  }};
 
 window.onload = function () {
     /*    const Foo = { template: "<div>fs</div>" };
