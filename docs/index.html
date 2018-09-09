@@ -85,7 +85,7 @@
       <div v-for="(menuItem, index) in menuItems" v-if="index >0 && index <5">
         <div :id="menuItem.title" class="row" v-if="menuItem.selected">
           <div v-if="menuItems[4].data.length == 0 && index==4" class="col-lg-4 col-sm-6">
-            You haven't favorited any challenges yet...<br /><br />
+            Je hebt nog geen challenges toegevoegd aan je favorieten...<br /><br />
           </div>
           <div class="col-lg-4 col-sm-6 portfolio-item" v-for="(item, findex) in menuItems[index].data">
 
