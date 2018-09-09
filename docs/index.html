@@ -328,22 +328,32 @@
       <!-- over -->
       <div v-for="(menuItem, index) in menuItems" v-if="index == 10">
         <div :id="menuItem.title" class="row" v-if="menuItem.selected">
-          <div class="col-lg-12 col-sm-6">MBOChallenges.nl is ontstaan uit de behoefte om interessante challenges en projecten vindbaar te maken voor studenten. De portaal dient als middel om praktijkgestuurd leren verder vorm te geven.   </div>
+          <div class="col-lg-12 col-sm-6">MBOChallenges.nl is ontstaan uit de behoefte om interessante challenges en
+            projecten vindbaar te maken voor studenten. De portaal dient als middel om praktijkgestuurd leren verder
+            vorm te geven.
+            <p>&nbsp;</p>
+            <p>Aanstaande uitbreidingen:</p>
+            <p>
+              - Lijst met open colleges en workshops<br />
+              - Koppelingen met kwalificatiedossiers
+            </p>
+            <p></p>
+          </div>
         </div>
       </div>
 
 
       <!-- contact -->
       <div v-for="(menuItem, index) in menuItems" v-if="index == 11">
-          <div :id="menuItem.title" class="row" v-if="menuItem.selected">
-            <div class="col-lg-12 col-sm-6" style="text-align: center;" >
-              Heeft u ook een challenge die u wil aandragen of heeft u andere vragen neem dan contact op met:<br/>&nbsp;<br/>&nbsp;
-              Frank Kroondijk<br/>
-              <br/>
-              <br>...of bezoek ons in het D'Lab in de Blokhuispoort op maandag of woensdag<br/>
-            </div>
+        <div :id="menuItem.title" class="row" v-if="menuItem.selected">
+          <div class="col-lg-12 col-sm-6" style="text-align: center;">
+            Heeft u ook een challenge die u wil aandragen of heeft u andere vragen neem dan contact op met:<br />&nbsp;<br />&nbsp;
+            Frank Kroondijk<br />
+            <br />
+            <br>...of bezoek ons in het D'Lab in de Blokhuispoort op maandag of woensdag<br />
           </div>
         </div>
+      </div>
 
       <!-- /.row -->
 
@@ -395,6 +405,16 @@
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script type="text/javascript" src="js/state.js"></script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-35931859-11"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-35931859-11');
+  </script>
 
 </body>
 
