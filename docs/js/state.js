@@ -58,7 +58,7 @@ window.onload = function () {
                     { title: "Bronnen", pageTitle: "Bronnen van de challenges", hidden: false, section: "bronnen", container: "bronnen", data: [], content: baseUrl + "?table=Bronnen&view=Bronnen", loaded: false, selected: false },
                     { title: "Partners", pageTitle: "Partner bedrijven", hidden: false, section: "partners", container: "partners", data: [], content: baseUrl + "?table=Company&view=Partners", loaded: false, selected: false },
                     { title: "Over", pageTitle: "Over MBO Challenges", hidden: false, section: "about", container: "about", data: [], content: "", loaded: false, selected: false },
-                    { title: "Contact", pageTitle: "Neem contact op", hidden: false, section: "contact", container: "contact", data: [], content: "", loaded: false, selected: false },
+                    { title: "Contact", pageTitle: "Contactgegevens", hidden: false, section: "contact", container: "contact", data: [], content: "", loaded: false, selected: false },
                 ],
                 itemDetails: -1,
                 applyFor

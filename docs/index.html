@@ -248,7 +248,7 @@
                 <div class="card-text" v-html="compiledMarkdown(item['fields']['Samenvatting'])"></div>
               </div>
               &nbsp;<br />&nbsp;<br>
-              <div class="buttons" >
+              <div class="buttons">
                 <span class="span-btn-single">
                   <a :href="item['fields']['Url']" target="_blank" class="pure-button btn btn-info btn-f-single" style="width:100%">
                     <i class="fas fa-info-circle"></i>
@@ -296,36 +296,55 @@
 
       <!-- partners -->
       <div v-for="(menuItem, index) in menuItems" v-if="index == 9">
-          <div :id="menuItem.title" class="row" v-if="menuItem.selected">
-  
-            <div class="col-lg-4 col-sm-6 portfolio-item" v-for="(item, findex) in menuItems[index].data" v-if="item['fields']['LogoUrl']">
-  
-              <div class="card h-100">
-  
-                <a :href="item['fields']['Website']" target="_blank"><img class="card-img-top" :src="item['fields']['LogoUrl']"
-                    alt="" v-if="item['fields']['LogoUrl']"></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <div v-html="item['fields']['Name']"></div>
-                  </h4>
-                  <div class="card-text" v-html="compiledMarkdown(item['fields']['Samenvatting'])"></div>
-                </div>
-                &nbsp;<br />&nbsp;<br>
-                <div class="buttons">
-                  <span class="span-btn-single">
-                    <a :href="item['fields']['Website']" target="_blank" class="pure-button btn btn-info btn-f-single" style="width:100%">
-                      <i class="fas fa-info-circle"></i>
-                      Bezoek de website
-                    </a>
-                  </span>
-                </div>
-  
-  
+        <div :id="menuItem.title" class="row" v-if="menuItem.selected">
+
+          <div class="col-lg-4 col-sm-6 portfolio-item" v-for="(item, findex) in menuItems[index].data" v-if="item['fields']['LogoUrl']">
+
+            <div class="card h-100">
+
+              <a :href="item['fields']['Website']" target="_blank"><img class="card-img-top" :src="item['fields']['LogoUrl']"
+                  alt="" v-if="item['fields']['LogoUrl']"></a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <div v-html="item['fields']['Name']"></div>
+                </h4>
+                <div class="card-text" v-html="compiledMarkdown(item['fields']['Samenvatting'])"></div>
+              </div>
+              &nbsp;<br />&nbsp;<br>
+              <div class="buttons">
+                <span class="span-btn-single">
+                  <a :href="item['fields']['Website']" target="_blank" class="pure-button btn btn-info btn-f-single"
+                    style="width:100%">
+                    <i class="fas fa-info-circle"></i>
+                    Bezoek de website
+                  </a>
+                </span>
               </div>
             </div>
           </div>
         </div>
-  
+      </div>
+
+      <!-- over -->
+      <div v-for="(menuItem, index) in menuItems" v-if="index == 10">
+        <div :id="menuItem.title" class="row" v-if="menuItem.selected">
+          <div class="col-lg-12 col-sm-6">MBOChallenges.nl is ontstaan uit de behoefte om interessante challenges en projecten vindbaar te maken voor studenten. De portaal dient als middel om praktijkgestuurd leren verder vorm te geven.   </div>
+        </div>
+      </div>
+
+
+      <!-- contact -->
+      <div v-for="(menuItem, index) in menuItems" v-if="index == 11">
+          <div :id="menuItem.title" class="row" v-if="menuItem.selected">
+            <div class="col-lg-12 col-sm-6" style="text-align: center;" >
+              Heeft u ook een challenge die u wil aandragen of heeft u andere vragen neem dan contact op met:<br/>&nbsp;<br/>&nbsp;
+              Frank Kroondijk<br/>
+              <br/>
+              <br>...of bezoek ons in het D'Lab in de Blokhuispoort op maandag of woensdag<br/>
+            </div>
+          </div>
+        </div>
+
       <!-- /.row -->
 
       <!-- Pagination 
@@ -363,7 +382,7 @@
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white">By Frank Kroondijk, Blokhuisplein 40, 8911 LJ Leeuwarden</p>
+        <p class="m-0 text-center text-white">Door Frank Kroondijk, Blokhuisplein 40, 8911 LJ Leeuwarden</p>
       </div>
       <!-- /.container -->
     </footer>
