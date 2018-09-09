@@ -69,6 +69,8 @@ a:hover {
   position:absolute;
   bottom: 0px;
   width:100%;
+  padding:4px;
+
 }
 
 .btn-details
@@ -78,7 +80,7 @@ a:hover {
 
 .btn-f-single
 {
-  
+  min-width: 50%;
 }
 .span-btn-single
 {

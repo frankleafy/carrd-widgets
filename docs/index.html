@@ -69,7 +69,8 @@
       <div id="home" class="row">
         <div class="col-lg-4 col-sm-6">
           Choose your challenge!
-          <img class="thumbnail" width="100" height="100" src="images/MBOChallengesInfographic.png" data-src="images/MBOChallengesInfographic.png">
+          <img class="thumbnail" style="background-color: white" width="100" height="100" src="images/ChallengeInfographic.svg"
+            data-src="images/ChallengeInfographic.svg">
         </div>
       </div>
 
@@ -93,6 +94,7 @@
                 <a href="#" @click="getItemDetails(item)"><img class="card-img-top" :src="item['fields']['Attachments'][0]['thumbnails']['large']['url']"
                     alt="" v-if="item['fields']['Attachments']"></a>
               </router-link>
+
               <div class="card-body">
                 <h4 class="card-title">
                   <div v-html="compiledMarkdown(item['fields']['Titel'])"></div>
@@ -107,20 +109,20 @@
                 <span v-if="index!=4" class="span-btn-single">
                   <button class="pure-button btn btn-success btn-f-single" @click="selectItem(item)" onclick="this.disabled=true;">
                     <i class="far fa-star"></i>
-                    Add to favorites
+                    Opslaan
                   </button>
                 </span>
                 <span v-if="index==4" class="span-btn-single">
                   <button class="pure-button btn btn-danger btn-f-single" @click="deleteItem(findex)">
                     <i class="far fa-trash-alt"></i>
-                    Remove
+                    Verwijderen
                   </button>
                 </span>
-                <router-link :to="'Details_'+item['fields']['Code']" class="router-link btn-f-single" >
+                <router-link :to="'Details_'+item['fields']['Code']" class="router-link btn-f-single">
                   <span class="span-btn-single">
                     <button class="pure-button btn btn-info btn-f-single" @click="getItemDetails(item)">
                       <i class="fas fa-info-circle"></i>
-                      Show details
+                      Bekijk details
                     </button>
                   </span>
                 </router-link>
@@ -139,9 +141,9 @@
           <div v-html="compiledMarkdown(item['fields']['Samenvatting'])"></div>
           <div v-html="compiledMarkdown(item['fields']['Omschrijving'])"></div>
           <a target="_blank" :href="item['fields']['Website']">{{item['fields']['Website']}}</a>
-          <br/>&nbsp;<br/>
-          <p style="text-align: center"><input type="button" @click="toApplicationForm(item['fields']['Code'],item['fields']['Titel'])" value="Meld je aan"
-            class="pure-button btn btn-info btn-f-single btn-details"></p>
+          <br />&nbsp;<br />
+          <p style="text-align: center"><input type="button" @click="toApplicationForm(item['fields']['Code'],item['fields']['Titel'])"
+              value="Meld je nu aan!" class="pure-button btn btn-info btn-f-single btn-details"></p>
         </div>
 
         <div class="col-md-4 portfolio-item" style="text-align: center">
@@ -156,7 +158,7 @@
             style="text-align: justify;"></div>
           <a v-if="item['fields']['O_Website']" :href="castToString(item['fields']['O_Website'])" target="_blank">{{castToString(item['fields']['O_Website'])}}</a>
           <br />&nbsp;<br />
-          <p><input type="button" @click="toApplicationForm(item['fields']['Code'],item['fields']['Titel'])" value="Meld je aan"
+          <p><input type="button" @click="toApplicationForm(item['fields']['Code'],item['fields']['Titel'])" value="Meld je nu aan!"
               class="pure-button btn btn-info btn-f-single btn-details"></p>
 
 
@@ -227,6 +229,103 @@
       </div>
 
 
+      <!-- events -->
+      <div v-for="(menuItem, index) in menuItems" v-if="index == 7">
+        <div :id="menuItem.title" class="row" v-if="menuItem.selected">
+
+          <div class="col-lg-4 col-sm-6 portfolio-item" v-for="(item, findex) in menuItems[index].data" v-if="item['fields']['Image']">
+
+            <div class="card h-100">
+
+              <a :href="item['fields']['Url']" target="_blank"><img class="card-img-top" :src="item['fields']['Image']"
+                  alt="" v-if="item['fields']['Image']"></a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <div v-html="item['fields']['Name']"></div>
+                </h4>
+                <div v-html="'<br/>Datum: '+formatDate(item['fields']['Datum'])+ ' - ' + item['fields']['Tijdstip']"></div>
+                &nbsp;<br />
+                <div class="card-text" v-html="compiledMarkdown(item['fields']['Samenvatting'])"></div>
+              </div>
+              &nbsp;<br />&nbsp;<br>
+              <div class="buttons" >
+                <span class="span-btn-single">
+                  <a :href="item['fields']['Url']" target="_blank" class="pure-button btn btn-info btn-f-single" style="width:100%">
+                    <i class="fas fa-info-circle"></i>
+                    Bekijk details
+                  </a>
+                </span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- bronnen -->
+      <div v-for="(menuItem, index) in menuItems" v-if="index == 8">
+        <div :id="menuItem.title" class="row" v-if="menuItem.selected">
+
+          <div class="col-lg-4 col-sm-6 portfolio-item" v-for="(item, findex) in menuItems[index].data" v-if="item['fields']['Image']">
+
+            <div class="card h-100">
+
+              <a :href="item['fields']['Url']" target="_blank"><img class="card-img-top" :src="item['fields']['Image']"
+                  alt="" v-if="item['fields']['Image']"></a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <div v-html="item['fields']['Name']"></div>
+                </h4>
+                <div class="card-text" v-html="compiledMarkdown(item['fields']['Samenvatting'])"></div>
+              </div>
+              &nbsp;<br />&nbsp;<br>
+              <div class="buttons">
+                <span class="span-btn-single">
+                  <a :href="item['fields']['Url']" target="_blank" class="pure-button btn btn-info btn-f-single" style="width:100%">
+                    <i class="fas fa-info-circle"></i>
+                    Bezoek de website
+                  </a>
+                </span>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- partners -->
+      <div v-for="(menuItem, index) in menuItems" v-if="index == 9">
+          <div :id="menuItem.title" class="row" v-if="menuItem.selected">
+  
+            <div class="col-lg-4 col-sm-6 portfolio-item" v-for="(item, findex) in menuItems[index].data" v-if="item['fields']['LogoUrl']">
+  
+              <div class="card h-100">
+  
+                <a :href="item['fields']['Website']" target="_blank"><img class="card-img-top" :src="item['fields']['LogoUrl']"
+                    alt="" v-if="item['fields']['LogoUrl']"></a>
+                <div class="card-body">
+                  <h4 class="card-title">
+                    <div v-html="item['fields']['Name']"></div>
+                  </h4>
+                  <div class="card-text" v-html="compiledMarkdown(item['fields']['Samenvatting'])"></div>
+                </div>
+                &nbsp;<br />&nbsp;<br>
+                <div class="buttons">
+                  <span class="span-btn-single">
+                    <a :href="item['fields']['Website']" target="_blank" class="pure-button btn btn-info btn-f-single" style="width:100%">
+                      <i class="fas fa-info-circle"></i>
+                      Bezoek de website
+                    </a>
+                  </span>
+                </div>
+  
+  
+              </div>
+            </div>
+          </div>
+        </div>
+  
       <!-- /.row -->
 
       <!-- Pagination 
