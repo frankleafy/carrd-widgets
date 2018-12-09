@@ -109,8 +109,7 @@ window.onload = function () {
                     return marked(source, { sanitize: true })
                 },
                 formatDate: function (source) {
-                    // 2018-09-14
-                    
+                    // 2018-09-14                    
                     var year = source.substring(0, 4);
                     var month = source.substring(5, 7);
                     var day = source.substring(8)
